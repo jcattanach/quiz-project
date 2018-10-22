@@ -1,9 +1,13 @@
+const DATABASE = firebase.database()
+const TESTREF = DATABASE.ref("Tests")
+
 //variable element names
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
 let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
+let submitButton = document.getElementById('submitButton')
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
@@ -14,9 +18,9 @@ enterQuestionAndAnswer = `
 <li>
   <input type="text" id="quizQuestion" placeholder="Question"/><br>
   <input type="text" id="quizAnswer" placeholder="Answer" required/>
-  <input type="text" id="quizWrongAnswer" placeholder="Alternative answer (optional)" />
-  <input type="text" id="quizWrongAnswer" placeholder="Alternative answer (optional)" />
-  <input type="text" id="quizWrongAnswer" placeholder="Alternative answer (optional)" />
+  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
+  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
+  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
 
@@ -33,7 +37,18 @@ enterMultipleChoice = `
   <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
-//event listeners
+
+function saveTestToDatabase(){
+  let testTitle = headerQuizName.innerHTML
+  let testName = { Name : testTitle}
+  let testQuestion = document.getElementById('quizQuestion').value
+  let testAnswer = document.getElementById('') 
+  TESTREF.child(testTitle).set(testName)
+}
+
+submitButton.addEventListener('click', function() {
+  saveTestToDatabase()
+})
 
 btnSubmitQuizName.addEventListener('click', function() {
   quizName = textboxQuizName.value
