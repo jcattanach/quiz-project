@@ -1,9 +1,14 @@
+let currentJSUser = localStorage.getItem("vCurrentUser")
+let currentUserID = currentJSUser
+console.log(currentUserID)
+
 //variable element names
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
 let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
+let logOutButton = document.getElementById("logOutButton")
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
@@ -44,4 +49,11 @@ addQuestion.addEventListener('click', function() {
 })
 addMultipleChoiceQuestion.addEventListener('click', function() {
     listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterMultipleChoice)
+})
+
+logOutButton.addEventListener('click', function () {
+
+  currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "register.html"
 })
