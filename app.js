@@ -1,13 +1,21 @@
 const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
 
+let currentJSUser = localStorage.getItem("vCurrentUser")
+let currentUserID = currentJSUser
+console.log(currentUserID)
+
 //variable element names
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
 let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
+
 let submitButton = document.getElementById('submitButton')
+
+let logOutButton = document.getElementById("logOutButton")
+
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
@@ -42,7 +50,7 @@ function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
   let testName = { Name : testTitle}
   let testQuestion = document.getElementById('quizQuestion').value
-  let testAnswer = document.getElementById('') 
+  let testAnswer = document.getElementById('')
   TESTREF.child(testTitle).set(testName)
 }
 
@@ -59,4 +67,11 @@ addQuestion.addEventListener('click', function() {
 })
 addMultipleChoiceQuestion.addEventListener('click', function() {
     listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterMultipleChoice)
+})
+
+logOutButton.addEventListener('click', function () {
+
+  currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "register.html"
 })
