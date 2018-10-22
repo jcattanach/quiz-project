@@ -12,7 +12,7 @@ function deleteQuestionFunction(listItem) {
 
 enterQuestionAndAnswer = `
 <li>
-  <input type="text" id="quizQuestion" placeholder="Question"/>
+  <input type="text" id="quizQuestion" placeholder="Question"/><br>
   <input type="text" id="quizAnswer" placeholder="Answer" required/>
   <input type="text" id="quizWrongAnswer" placeholder="Alternative answer (optional)" />
   <input type="text" id="quizWrongAnswer" placeholder="Alternative answer (optional)" />
@@ -22,13 +22,13 @@ enterQuestionAndAnswer = `
 
 enterMultipleChoice = `
 <li>
-  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/>
+  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>
   <input type="checkbox" id="checkboxMultipleChoiceAnswerOne"/>
-  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" />
+  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>
   <input type="checkbox" id="checkboxMultipleChoiceAnswerTwo"/>
-  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" />
+  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>
   <input type="checkbox" id="checkboxMultipleChoiceAnswerThree"/>
-  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" />
+  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>
   <input type="checkbox" id="checkboxMultipleChoiceAnswerFour"/>
   <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
