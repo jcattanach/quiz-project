@@ -22,6 +22,7 @@ function deleteQuestionFunction(listItem) {
   whichList.removeChild(listItem)
 }
 
+
 enterQuestionAndAnswer = `
 <li>
   <input type="text" id="quizQuestion" placeholder="Question"/><br>
@@ -49,8 +50,8 @@ enterMultipleChoice = `
 function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
   let testName = { Name : testTitle}
-  let testQuestion = document.getElementById('quizQuestion').value
-  let testAnswer = document.getElementById('')
+  // let testQuestion = document.getElementById('quizQuestion').value
+  // let testAnswer = document.getElementById('')
   TESTREF.child(testTitle).set(testName)
 }
 
