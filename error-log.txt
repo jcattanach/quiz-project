@@ -1,9 +1,1 @@
 questions/thoughts:
-  how should i create ids for each individual question. For loop?? how will i know how many questions they want?
-  (maybe i dont need to)
-
-  how can i create an admin page?
-
-  do all buttons within a form have to submit the form?
-
-  make multiple right answers

@@ -21,7 +21,7 @@ testQuestionIDArray = []
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
   whichList.removeChild(listItem)
-  
+
     let numberToRemove = listItem.id
     console.log(numberToRemove)
     for (let index = 0; index < testQuestionIDArray.length; index++) {
@@ -30,27 +30,20 @@ function deleteQuestionFunction(listItem) {
       if (testQuestionIDArray[index] == numberToRemove) {
         console.log("same Number")
       testQuestionIDArray.splice(index, 1)
-  
   }
-      
 }
   console.log(testQuestionIDArray)
 }
 
-
-
-
-
-
 enterMultipleChoice = `
 <li>
-  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>
+  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>A
   <input type="checkbox" id="checkboxMultipleChoiceAnswerOne"/>
-  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>
+  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>B
   <input type="checkbox" id="checkboxMultipleChoiceAnswerTwo"/>
-  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>
+  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>C
   <input type="checkbox" id="checkboxMultipleChoiceAnswerThree"/>
-  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>
+  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>D
   <input type="checkbox" id="checkboxMultipleChoiceAnswerFour"/>
   <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
@@ -90,10 +83,9 @@ btnSubmitQuizName.addEventListener('click', function() {
   headerQuizName.innerHTML = quizName
 })
 addQuestion.addEventListener('click', function() {
-  
+
   let number = Math.floor(Math.random() * 100000000000000000000)
 
-  
 
   enterQuestionAndAnswer = `
 <li class="questionLI" id="${number}">
@@ -122,4 +114,3 @@ logOutButton.addEventListener('click', function () {
   localStorage.setItem("vCurrentUser", currentUserID)
   document.location.href = "register.html"
 })
-
