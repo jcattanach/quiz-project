@@ -4,7 +4,7 @@ const TESTREF = DATABASE.ref("Tests")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
-console.log(currentUserID)
+//console.log(currentUserID)
 //variable element names
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
@@ -16,18 +16,29 @@ let submitButton = document.getElementById('submitButton')
 
 let logOutButton = document.getElementById("logOutButton")
 let number
+testQuestionIDArray = []
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
   whichList.removeChild(listItem)
+  
+    let numberToRemove = listItem.id
+    console.log(numberToRemove)
+    for (let index = 0; index < testQuestionIDArray.length; index++) {
+      console.log(testQuestionIDArray[index])
+      console.log(numberToRemove)
+      if (testQuestionIDArray[index] == numberToRemove) {
+        console.log("same Number")
+      testQuestionIDArray.splice(index, 1)
+  
+  }
+      
+}
+  console.log(testQuestionIDArray)
 }
 
 
 
-function idNumber() {
-number = Math.floor(Math.random() * 100000000000000000000)
-return number
-}
 
 
 
@@ -46,11 +57,18 @@ enterMultipleChoice = `
 </li>`
 
 function saveTestToDatabase(){
-  let testTitle = headerQuizName.innerHTML
-  let testName = { Name : testTitle}
-  // let testQuestion = document.getElementById('quizQuestion').value
-  // let testAnswer = document.getElementById('')
-  TESTREF.child(testTitle).set(testName)
+  //let testTitle = headerQuizName.innerHTML
+  //let testName = { Name : testTitle}
+  //TESTREF.child(testTitle).set(testName)
+
+  testQuestionIDArray.map(function (questionObject) {
+    let questionText = document.getElementById(questionObject).childNodes[1].value
+    let mainAnswer = document.getElementById(questionObject).childNodes[4].value
+    let altAnswer1 = document.getElementById(questionObject).childNodes[6].value
+    let altAnswer2 = document.getElementById(questionObject).childNodes[8].value
+    let altAnswer3 = document.getElementById(questionObject).childNodes[10].value
+    console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
+})
 }
 
 submitButton.addEventListener('click', function() {
@@ -63,7 +81,10 @@ btnSubmitQuizName.addEventListener('click', function() {
   headerQuizName.innerHTML = quizName
 })
 addQuestion.addEventListener('click', function() {
-  idNumber()
+  
+  let number = Math.floor(Math.random() * 100000000000000000000)
+
+  
 
   enterQuestionAndAnswer = `
 <li class="questionLI" id="${number}">
@@ -75,6 +96,7 @@ addQuestion.addEventListener('click', function() {
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
 
+  testQuestionIDArray.push(number)
 
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
 
@@ -91,3 +113,4 @@ logOutButton.addEventListener('click', function () {
   localStorage.setItem("vCurrentUser", currentUserID)
   document.location.href = "register.html"
 })
+
