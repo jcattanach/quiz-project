@@ -15,7 +15,7 @@ btnSelectLogin.addEventListener('click', function () {
 
 btnSelectRegister.addEventListener('click', function () {
 
-register() 
+register()
 
 })
 
@@ -35,14 +35,14 @@ function register() {
 
     let emailTextBox = document.getElementById("emailTextBox")
     let passwordTextBox = document.getElementById("passwordTextBox")
-    
-    
+
+
     let btnRegister = document.getElementById("btnRegister")
 
-    
 
-    
-    
+
+
+
     btnRegister.addEventListener('click', function () {
 
       let email = emailTextBox.value
@@ -58,10 +58,11 @@ function register() {
         }
       }
 
-      function saveTeacher(userID) {
-        
+      function saveTeacher(userID, name) {
+
         let currentUser = { "User ID": userID,
-                            "Account Type" : "Teacher" }
+                            "Account Type" : "Teacher",
+                            "Name" : name }
         userCategoriesRef.child("Teachers").child(userID).set(currentUser)
       }
       function saveStudent(userID) {
@@ -77,7 +78,7 @@ function register() {
           console.log(userID)
           login()
           saveUser(userID)
-          
+
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -130,18 +131,15 @@ function login() {
   })
 
 }
-  
+
 function userPreRegisterMessage() {
   regLogin.insertAdjacentHTML('beforeend', `<div>User Already Registered</div>`)
-}    
-  
+}
+
 function userNotRegistedMessage() {
   regLogin.insertAdjacentHTML('beforeend', `<div>User Not Registered</div>`)
-}   
+}
 
 function testCreatorApp(){
   document.location.href = "createtest.html"
 }
-  
-  
-

@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Test Creator Login</title>
-    <!-- <link rel="stylesheet" type="text/css" href="register.css" /> -->
-    <!-- <link rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 480px)" href="mobile.css" />
-    <link rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" href="desktop.css" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <title>Results</title>
 </head>
-
 <body>
-<div id="regLogin">
-    <button id="btnSelectRegister">Register</button>
-    <button id="btnSelectLogin">Login</button>
+<h3>Enter Test Name</h3>
+<div id="testContainer">
+  <input type="text" id="testTextBox" placeholder="Enter name of the Test"/>
+  <button id="viewResultsBtn">View Results</button>
+<ul id="testList">
+</ul>
 </div>
 
+<div id="resultsContainer">
+<h3>Results</h3>
+<ul id="resultsList">
 
+</ul>
+
+</div>
 </body>
-
-
-
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-database.js"></script>
@@ -38,6 +40,5 @@
     };
     firebase.initializeApp(config);
 </script>
-<script src="register.js"></script>
-
+<script src="results.js"> </script>
 </html>
