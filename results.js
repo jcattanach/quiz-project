@@ -1,10 +1,15 @@
+let currentJSUser = localStorage.getItem("vCurrentUser")
+let currentUserID = currentJSUser
+console.log(currentUserID)
+
+
 let testContainer = document.getElementById("testContainer")
 let testList = document.getElementById("testList")
 let resultsContainer = document.getElementById("resultsContainer")
 let resultsList = document.getElementById("resultsList")
 let viewResultsBtn = document.getElementById("viewResultsBtn")
 let testTextBox = document.getElementById("testTextBox")
-
+let logOutButton = document.getElementById("logOutButton")
 
 const database = firebase.database()
 const testsRef = database.ref("Tests")
@@ -48,3 +53,9 @@ resultsList.insertAdjacentHTML("beforeend", testItem)
 //       tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
 //     })
 // }
+
+logOutButton.addEventListener('click', function () {
+currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "register.html"
+})
