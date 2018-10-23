@@ -23,7 +23,7 @@ testQuestionType2IDArray = []
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
   whichList.removeChild(listItem)
-  
+
     let numberToRemove = listItem.id
     console.log(numberToRemove)
     for (let index = 0; index < testQuestionIDArray.length; index++) {
@@ -32,15 +32,10 @@ function deleteQuestionFunction(listItem) {
       if (testQuestionIDArray[index] == numberToRemove) {
         console.log("same Number")
       testQuestionIDArray.splice(index, 1)
-  
   }
-      
 }
   console.log(testQuestionIDArray)
 }
-
-
-
 
 
 
@@ -54,7 +49,7 @@ function saveTestToDatabase(){
 
 function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
 
-  
+
   console.log(uniqueTestIDRef.path.pieces_[1])
   testQuestionType1IDArray.map(function (unqueQuestionNumber) {
     console.log(unqueQuestionNumber)
@@ -86,7 +81,7 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     let choiceB = document.getElementById(unqueQuestionNumber).childNodes[11].value
     let choiceC = document.getElementById(unqueQuestionNumber).childNodes[16].value
     let choiceD = document.getElementById(unqueQuestionNumber).childNodes[21].value
-    
+
     let choiceACheckbox = document.getElementById(unqueQuestionNumber).childNodes[4].checked
     let choiceBCheckbox = document.getElementById(unqueQuestionNumber).childNodes[9].checked
     let choiceCCheckbox = document.getElementById(unqueQuestionNumber).childNodes[14].checked
@@ -99,11 +94,11 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
         answer += choiceB }
       else if (choiceCCheckbox == true){
         answer += choiceC}
-      
+
       else if (choiceDCheckbox == true) {
         answer += choiceD}
-      
-    
+
+
     console.log(questionText, choiceA, choiceB, choiceC, choiceD)
     questionMultipleChoiceObject = {
       "Answer": answer,
@@ -130,10 +125,9 @@ btnSubmitQuizName.addEventListener('click', function() {
 })
 
 addQuestion.addEventListener('click', function() {
-  
+
   let number = Math.floor(Math.random() * 100000000000000000000)
 
-  
 
   enterQuestionAndAnswer = `
 <li class="questionType1LI" id="${number}">
@@ -172,7 +166,7 @@ let number = Math.floor(Math.random() * 100000000000000000000)
 
   testQuestionType2IDArray.push(number)
 
-  
+
 
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterMultipleChoice)
 })
@@ -183,4 +177,3 @@ logOutButton.addEventListener('click', function () {
   localStorage.setItem("vCurrentUser", currentUserID)
   document.location.href = "register.html"
 })
-
