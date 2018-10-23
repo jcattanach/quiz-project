@@ -1,10 +1,7 @@
-
-
-
-
-
 var userID
 
+const database = firebase.database()
+const userCategoriesRef = database.ref("Users")
 
 let btnSelectLogin = document.getElementById("btnSelectLogin")
 let btnSelectRegister = document.getElementById("btnSelectRegister")
@@ -16,38 +13,72 @@ btnSelectLogin.addEventListener('click', function () {
   login()
 })
 
-
-
-
-
-
-
 btnSelectRegister.addEventListener('click', function () {
 
-register() 
+register()
 
 })
 
-  function register() {
+
+
+
+
+
+function register() {
   regLogin.innerHTML = `<h3>Register User</h3>
     <input type="email" id="emailTextBox" />
     <input type="password" id="passwordTextBox" />
+    <br>
+    <input type="radio" value="teacher" name="accountType"> Teacher
+    <input type="radio" value="student" name="accountType"> Student<br>
     <button id="btnRegister">Register</button>`
 
     let emailTextBox = document.getElementById("emailTextBox")
     let passwordTextBox = document.getElementById("passwordTextBox")
+
+
     let btnRegister = document.getElementById("btnRegister")
+
+
+
+
 
     btnRegister.addEventListener('click', function () {
 
       let email = emailTextBox.value
       let password = passwordTextBox.value
+      let radioValue = document.querySelector('input[name="accountType"]:checked').value
 
+      function saveUser(userID) {
+        if (radioValue === "student") {
+          saveStudent(userID)
+        }
+        else {
+          saveTeacher(userID)
+        }
+      }
+
+      function saveTeacher(userID, name) {
+
+        let currentUser = { "User ID": userID,
+                            "Account Type" : "Teacher",
+                            "Name" : name }
+        userCategoriesRef.child("Teachers").child(userID).set(currentUser)
+      }
+      function saveStudent(userID) {
+        let currentUser = { "User ID": userID,
+                            "Account Type": "Student" }
+        userCategoriesRef.child("Students").child(userID).set(currentUser)
+      }
       // create a new user using email and password
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function (user) {
           console.log("User created")
+          let userID = user.user.uid
+          console.log(userID)
           login()
+          saveUser(userID)
+
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -100,18 +131,15 @@ function login() {
   })
 
 }
-  
+
 function userPreRegisterMessage() {
   regLogin.insertAdjacentHTML('beforeend', `<div>User Already Registered</div>`)
-}    
-  
+}
+
 function userNotRegistedMessage() {
   regLogin.insertAdjacentHTML('beforeend', `<div>User Not Registered</div>`)
-}   
+}
 
 function testCreatorApp(){
-  document.location.href = "index.html"
+  document.location.href = "createtest.html"
 }
-  
-  
-
