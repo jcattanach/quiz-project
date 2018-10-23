@@ -35,16 +35,16 @@ let testItem =  `
 resultsList.insertAdjacentHTML("beforeend", testItem)
 })
 
-function displayOrders() {
-
-  testsRef.on('value',function(snapshot){
-      resultsList.innerHTML = ''
-      tests = []
-      snapshot.forEach(function(childSnapshot){
-        let key = childSnapshot.val().name
-        let value = childSnapshot.val().score
-        tests.push(childSnapshot.val())
-      })
-      tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
-    })
-}
+// function displayOrders() {
+//
+//   testsRef.on('value',function(snapshot){
+//       resultsList.innerHTML = ''
+//       tests = []
+//       snapshot.forEach(function(childSnapshot){
+//         let key = childSnapshot.val().name
+//         let value = childSnapshot.val().score
+//         tests.push(childSnapshot.val())
+//       })
+//       tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
+//     })
+// }
