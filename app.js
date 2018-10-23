@@ -22,13 +22,11 @@ function deleteQuestionFunction(listItem) {
 }
 
 
+
 function idNumber() {
 number = Math.floor(Math.random() * 100000000000000000000)
 return number
 }
-
-
-
 
 
 
@@ -49,14 +47,14 @@ enterMultipleChoice = `
 function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
   let testName = { Name : testTitle}
-  let testQuestion = document.getElementById('quizQuestion').value
-  let testAnswer = document.getElementById('')
+  // let testQuestion = document.getElementById('quizQuestion').value
+  // let testAnswer = document.getElementById('')
   TESTREF.child(testTitle).set(testName)
 }
 
 submitButton.addEventListener('click', function() {
   saveTestToDatabase()
-  
+
 })
 
 btnSubmitQuizName.addEventListener('click', function() {
@@ -65,7 +63,7 @@ btnSubmitQuizName.addEventListener('click', function() {
 })
 addQuestion.addEventListener('click', function() {
   idNumber()
-  
+
   enterQuestionAndAnswer = `
 <li class="questionLI" id="${number}">
   <input type="text" id="quizQuestion" placeholder="Question"/><br>
@@ -75,14 +73,14 @@ addQuestion.addEventListener('click', function() {
   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
-  
-  
+
+
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
-  
- 
+
+
 })
 addMultipleChoiceQuestion.addEventListener('click', function() {
- 
+
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterMultipleChoice)
 })
 
@@ -92,5 +90,3 @@ logOutButton.addEventListener('click', function () {
   localStorage.setItem("vCurrentUser", currentUserID)
   document.location.href = "register.html"
 })
-
-
