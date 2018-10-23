@@ -57,18 +57,27 @@ enterMultipleChoice = `
 </li>`
 
 function saveTestToDatabase(){
-  //let testTitle = headerQuizName.innerHTML
-  //let testName = { Name : testTitle}
-  //TESTREF.child(testTitle).set(testName)
 
-  testQuestionIDArray.map(function (questionObject) {
-    let questionText = document.getElementById(questionObject).childNodes[1].value
-    let mainAnswer = document.getElementById(questionObject).childNodes[4].value
-    let altAnswer1 = document.getElementById(questionObject).childNodes[6].value
-    let altAnswer2 = document.getElementById(questionObject).childNodes[8].value
-    let altAnswer3 = document.getElementById(questionObject).childNodes[10].value
+  let testTitle = headerQuizName.innerHTML
+  let testName = { Name: testTitle }
+  let uniqueTestIDRef = TESTREF.push()
+
+  testQuestionIDArray.map(function (unqueQuestionNumber) {
+    console.log(unqueQuestionNumber)
+    let questionText = document.getElementById(unqueQuestionNumber).childNodes[1].value
+    let mainAnswer = document.getElementById(unqueQuestionNumber).childNodes[4].value
+    let altAnswer1 = document.getElementById(unqueQuestionNumber).childNodes[6].value
+    let altAnswer2 = document.getElementById(unqueQuestionNumber).childNodes[8].value
+    let altAnswer3 = document.getElementById(unqueQuestionNumber).childNodes[10].value
     console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
+    questionObject = {"Answer" : mainAnswer,
+                      "Alternative Answer 1" : altAnswer1,
+      "Alternative Answer 2": altAnswer2,
+      "Alternative Answer 3": altAnswer3}
+
+    uniqueTestIDRef.child(testTitle).child("Questions").child(unqueQuestionNumber).child(questionText).set(questionObject)
 })
+
 }
 
 submitButton.addEventListener('click', function() {
