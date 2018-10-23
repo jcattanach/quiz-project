@@ -1,6 +1,7 @@
 
 const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
+const USERCATEGORIESREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
@@ -16,7 +17,8 @@ let submitButton = document.getElementById('submitButton')
 
 let logOutButton = document.getElementById("logOutButton")
 let number
-testQuestionIDArray = []
+testQuestionType1IDArray = []
+testQuestionType2IDArray = []
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
@@ -42,27 +44,19 @@ function deleteQuestionFunction(listItem) {
 
 
 
-enterMultipleChoice = `
-<li>
-  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerOne"/>
-  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerTwo"/>
-  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerThree"/>
-  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerFour"/>
-  <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
-  <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
-</li>`
-
 function saveTestToDatabase(){
-
   let testTitle = headerQuizName.innerHTML
-  let testName = { Name: testTitle }
   let uniqueTestIDRef = TESTREF.push()
+  saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef)
+  saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef)
 
-  testQuestionIDArray.map(function (unqueQuestionNumber) {
+}
+
+function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
+
+  
+  console.log(uniqueTestIDRef.path.pieces_[1])
+  testQuestionType1IDArray.map(function (unqueQuestionNumber) {
     console.log(unqueQuestionNumber)
     let questionText = document.getElementById(unqueQuestionNumber).childNodes[1].value
     let mainAnswer = document.getElementById(unqueQuestionNumber).childNodes[4].value
@@ -75,8 +69,53 @@ function saveTestToDatabase(){
       "Alternative Answer 2": altAnswer2,
       "Alternative Answer 3": altAnswer3}
 
-    uniqueTestIDRef.child(testTitle).child("Questions").child(unqueQuestionNumber).child(questionText).set(questionObject)
-})
+    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).child(questionText).set(questionObject)
+    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).child(questionText).set(questionObject)
+  })
+
+}
+
+function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
+
+  console.log(uniqueTestIDRef.path.pieces_[1])
+  testQuestionType2IDArray.map(function (unqueQuestionNumber) {
+    console.log(unqueQuestionNumber)
+    console.log(document.getElementById(unqueQuestionNumber).childNodes)
+    let questionText = document.getElementById(unqueQuestionNumber).childNodes[1].value
+    let choiceA = document.getElementById(unqueQuestionNumber).childNodes[6].value
+    let choiceB = document.getElementById(unqueQuestionNumber).childNodes[11].value
+    let choiceC = document.getElementById(unqueQuestionNumber).childNodes[16].value
+    let choiceD = document.getElementById(unqueQuestionNumber).childNodes[21].value
+    
+    let choiceACheckbox = document.getElementById(unqueQuestionNumber).childNodes[4].checked
+    let choiceBCheckbox = document.getElementById(unqueQuestionNumber).childNodes[9].checked
+    let choiceCCheckbox = document.getElementById(unqueQuestionNumber).childNodes[14].checked
+    let choiceDCheckbox = document.getElementById(unqueQuestionNumber).childNodes[19].checked
+    let answer = ""
+    if (choiceACheckbox == "true"){
+        answer += choiceA}
+      else if
+        (choiceBCheckbox == true){
+        answer += choiceB }
+      else if (choiceCCheckbox == true){
+        answer += choiceC}
+      
+      else if (choiceDCheckbox == true) {
+        answer += choiceD}
+      
+    
+    console.log(questionText, choiceA, choiceB, choiceC, choiceD)
+    questionMultipleChoiceObject = {
+      "Answer": answer,
+      "Choice A": choiceA,
+      "Choice B": choiceB,
+      "Choice C": choiceC,
+      "Choice D": choiceD
+    }
+
+    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).child(questionText).set(questionMultipleChoiceObject)
+    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).child(questionText).set(questionMultipleChoiceObject)
+  })
 
 }
 
@@ -89,6 +128,7 @@ btnSubmitQuizName.addEventListener('click', function() {
   quizName = textboxQuizName.value
   headerQuizName.innerHTML = quizName
 })
+
 addQuestion.addEventListener('click', function() {
   
   let number = Math.floor(Math.random() * 100000000000000000000)
@@ -96,7 +136,7 @@ addQuestion.addEventListener('click', function() {
   
 
   enterQuestionAndAnswer = `
-<li class="questionLI" id="${number}">
+<li class="questionType1LI" id="${number}">
   <input type="text" id="quizQuestion" placeholder="Question"/><br>
   <input type="text" id="quizAnswer" placeholder="Answer" required/>
   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
@@ -105,13 +145,34 @@ addQuestion.addEventListener('click', function() {
   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
 
-  testQuestionIDArray.push(number)
+  testQuestionType1IDArray.push(number)
 
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
 
 
 })
+
 addMultipleChoiceQuestion.addEventListener('click', function() {
+
+let number = Math.floor(Math.random() * 100000000000000000000)
+
+  enterMultipleChoice = `
+<li li class="questionType2LI" id="${number}">
+  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>A.
+  <input type="checkbox" id="checkboxMultipleChoiceAnswerOne"/>
+  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>B.
+  <input type="checkbox" id="checkboxMultipleChoiceAnswerTwo"/>
+  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>C.
+  <input type="checkbox" id="checkboxMultipleChoiceAnswerThree"/>
+  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>D.
+  <input type="checkbox" id="checkboxMultipleChoiceAnswerFour"/>
+  <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
+  <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
+</li>`
+
+  testQuestionType2IDArray.push(number)
+
+  
 
   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterMultipleChoice)
 })

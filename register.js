@@ -1,7 +1,7 @@
 var userID
 
-const database = firebase.database()
-const userCategoriesRef = database.ref("Users")
+const DATABASE = firebase.database()
+let userCategoriesRef = DATABASE.ref("Users")
 
 let btnSelectLogin = document.getElementById("btnSelectLogin")
 let btnSelectRegister = document.getElementById("btnSelectRegister")
@@ -58,12 +58,12 @@ function register() {
         }
       }
 
-      function saveTeacher(userID, name) {
+      function saveTeacher(userID) {
 
         let currentUser = { "User ID": userID,
                             "Account Type" : "Teacher",
-                            "Name" : name }
-        userCategoriesRef.child("Teachers").child(userID).set(currentUser)
+                          }
+        userCategoriesRef.child("Teachers").child(userID).child("Teacher Information").set(currentUser)
       }
       function saveStudent(userID) {
         let currentUser = { "User ID": userID,
@@ -88,7 +88,7 @@ function register() {
             login()
             userPreRegisterMessage()
           }
-        });
+        })
 
     })
   }
