@@ -59,13 +59,14 @@ function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
     let altAnswer2 = document.getElementById(unqueQuestionNumber).childNodes[8].value
     let altAnswer3 = document.getElementById(unqueQuestionNumber).childNodes[10].value
     console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
-    questionObject = {"Answer" : mainAnswer,
-                      "Alternative Answer 1" : altAnswer1,
-      "Alternative Answer 2": altAnswer2,
-      "Alternative Answer 3": altAnswer3}
+    questionObject = { "question" : questionText,
+                        "Answer" : mainAnswer,
+                      "AltAnswerOne" : altAnswer1,
+                      "AltAnswerTwo": altAnswer2,
+                      "AltAnswerThree": altAnswer3}
 
-    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).child(questionText).set(questionObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).child(questionText).set(questionObject)
+    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).set(questionObject)
+    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).set(questionObject)
   })
 
 }

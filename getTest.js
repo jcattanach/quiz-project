@@ -3,9 +3,12 @@ const DATABASE = firebase.database()
 testsArray = []
 
 function mapThruArray(tests){
-  // let testAnswers = tests.map(function(test){
-    console.log(tests[0])
-  // })
+  let altAnswer = 'Choice A'
+  let testAnswers = tests.map(function(test){
+    console.log(test.question)
+    console.log(test.Answer)
+    console.log(test.AltAnswerOne, test.AltAnswerTwo, test.AltAnswerThree)
+  })
 }
 
 
