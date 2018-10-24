@@ -1,6 +1,7 @@
 
 const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
+const QUESTREF = DATABASE.ref("Questions")
 const USERCATEGORIESREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
@@ -10,14 +11,14 @@ let currentUserID = currentJSUser
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
-let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
+//let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
 
 let submitButton = document.getElementById('submitButton')
 
 let logOutButton = document.getElementById("logOutButton")
 let number
-testQuestionType1IDArray = []
+//testQuestionType1IDArray = []
 testQuestionType2IDArray = []
 
 function deleteQuestionFunction(listItem) {
@@ -26,15 +27,15 @@ function deleteQuestionFunction(listItem) {
 
     let numberToRemove = listItem.id
     console.log(numberToRemove)
-    for (let index = 0; index < testQuestionIDArray.length; index++) {
+    for (let index = 0; index < testQuestionType2IDArray.length; index++) {
       console.log(testQuestionIDArray[index])
       console.log(numberToRemove)
-      if (testQuestionIDArray[index] == numberToRemove) {
+      if (testQuestionType2IDArray[index] == numberToRemove) {
         console.log("same Number")
-      testQuestionIDArray.splice(index, 1)
+      testQuestionType2IDArray.splice(index, 1)
   }
 }
-  console.log(testQuestionIDArray)
+  console.log(testQuestionType2IDArray)
 }
 
 
@@ -42,62 +43,67 @@ function deleteQuestionFunction(listItem) {
 function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
   let uniqueTestIDRef = TESTREF.push()
-  saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef)
+  console.log(uniqueTestIDRef)
+  //saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef)
   saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef)
 
 }
 
-function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
+// function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
 
 
-  console.log(uniqueTestIDRef.path.pieces_[1])
-  testQuestionType1IDArray.map(function (unqueQuestionNumber) {
-    console.log(unqueQuestionNumber)
-    let questionText = document.getElementById(unqueQuestionNumber).childNodes[1].value
-    let mainAnswer = document.getElementById(unqueQuestionNumber).childNodes[4].value
-    let altAnswer1 = document.getElementById(unqueQuestionNumber).childNodes[6].value
-    let altAnswer2 = document.getElementById(unqueQuestionNumber).childNodes[8].value
-    let altAnswer3 = document.getElementById(unqueQuestionNumber).childNodes[10].value
-    console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
-    questionObject = { "question" : questionText,
-                        "Answer" : mainAnswer,
-                      "AltAnswerOne" : altAnswer1,
-                      "AltAnswerTwo": altAnswer2,
-                      "AltAnswerThree": altAnswer3}
+//   console.log(uniqueTestIDRef.path.pieces_[1])
+//   testQuestionType1IDArray.map(function () {
+//     console.log(unqiueQuestionNumber)
+//     let questionText = document.getElementById(unqiueQuestionNumber).childNodes[1].value
+//     let mainAnswer = document.getElementById(unqiueQuestionNumber).childNodes[4].value
+//     let altAnswer1 = document.getElementById(unqiueQuestionNumber).childNodes[6].value
+//     let altAnswer2 = document.getElementById(unqiueQuestionNumber).childNodes[8].value
+//     let altAnswer3 = document.getElementById(unqiueQuestionNumber).childNodes[10].value
+//     console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
+//     questionObject = { "question" : questionText,
+//                         "Answer" : mainAnswer,
+//                       "AltAnswerOne" : altAnswer1,
+//                       "AltAnswerTwo": altAnswer2,
+//                       "AltAnswerThree": altAnswer3}
 
-    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).set(questionObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqueQuestionNumber).set(questionObject)
-  })
+//     uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqiueQuestionNumber).set(questionObject)
+//     USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqiueQuestionNumber).set(questionObject)
+//   })
 
-}
+// }
 
 function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
 
   console.log(uniqueTestIDRef.path.pieces_[1])
-  testQuestionType2IDArray.map(function (unqueQuestionNumber) {
-    console.log(unqueQuestionNumber)
-    console.log(document.getElementById(unqueQuestionNumber).childNodes)
-    let questionText = document.getElementById(unqueQuestionNumber).childNodes[1].value
-    let choiceA = document.getElementById(unqueQuestionNumber).childNodes[6].value
-    let choiceB = document.getElementById(unqueQuestionNumber).childNodes[11].value
-    let choiceC = document.getElementById(unqueQuestionNumber).childNodes[16].value
-    let choiceD = document.getElementById(unqueQuestionNumber).childNodes[21].value
+  testQuestionType2IDArray.map(function (unqiueQuestionNumber) {
+    console.log(unqiueQuestionNumber)
+    console.log(document.getElementById(unqiueQuestionNumber).childNodes)
+    let questionText = document.getElementById(unqiueQuestionNumber).childNodes[1].value
+    let choiceA = document.getElementById(unqiueQuestionNumber).childNodes[6].value
+    let choiceB = document.getElementById(unqiueQuestionNumber).childNodes[11].value
+    let choiceC = document.getElementById(unqiueQuestionNumber).childNodes[16].value
+    let choiceD = document.getElementById(unqiueQuestionNumber).childNodes[21].value
 
-    let choiceACheckbox = document.getElementById(unqueQuestionNumber).childNodes[4].checked
-    let choiceBCheckbox = document.getElementById(unqueQuestionNumber).childNodes[9].checked
-    let choiceCCheckbox = document.getElementById(unqueQuestionNumber).childNodes[14].checked
-    let choiceDCheckbox = document.getElementById(unqueQuestionNumber).childNodes[19].checked
+    let choiceACheckbox = document.getElementById(unqiueQuestionNumber).childNodes[4].checked
+    let choiceBCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[9].checked
+    let choiceCCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[14].checked
+    let choiceDCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[19].checked
     let answer = ""
     if (choiceACheckbox == "true"){
-        answer += choiceA}
+       answer = choiceA
+      return answer}
       else if
         (choiceBCheckbox == true){
-        answer += choiceB }
+        answer = choiceB
+      return answer }
       else if (choiceCCheckbox == true){
-        answer += choiceC}
+        answer = choiceC
+     return answer}
 
       else if (choiceDCheckbox == true) {
-        answer += choiceD}
+        answer = choiceD
+      return answer}
 
 
     console.log(questionText, choiceA, choiceB, choiceC, choiceD)
@@ -107,11 +113,13 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
       "ChoiceB": choiceB,
       "ChoiceC": choiceC,
       "ChoiceD": choiceD,
-      "question": questionText
+      "question": questionText,
+      "testID": uniqueTestIDRef.path.pieces_[1]
     }
-
-    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).set(questionMultipleChoiceObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).set(questionMultipleChoiceObject)
+    let uniqueTestID = { Test: uniqueTestIDRef.path.pieces_[1]}
+    uniqueTestIDRef.set(testTitle)
+    QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
+    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").set(uniqueTestID)
   })
 
 }
@@ -126,27 +134,27 @@ btnSubmitQuizName.addEventListener('click', function() {
   headerQuizName.innerHTML = quizName
 })
 
-addQuestion.addEventListener('click', function() {
+// addQuestion.addEventListener('click', function() {
 
-  let number = Math.floor(Math.random() * 100000000000000000000)
-
-
-  enterQuestionAndAnswer = `
-<li class="questionType1LI" id="${number}">
-  <input type="text" id="quizQuestion" placeholder="Question"/><br>
-  <input type="text" id="quizAnswer" placeholder="Answer" required/>
-  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-  <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-  <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
-</li>`
-
-  testQuestionType1IDArray.push(number)
-
-  listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
+//   let number = Math.floor(Math.random() * 100000000000000000000)
 
 
-})
+//   enterQuestionAndAnswer = `
+// <li class="questionType1LI" id="${number}">
+//   <input type="text" id="quizQuestion" placeholder="Question"/><br>
+//   <input type="text" id="quizAnswer" placeholder="Answer" required/>
+//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
+//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
+//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
+//   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
+// </li>`
+
+//   testQuestionType1IDArray.push(number)
+
+//   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
+
+
+// })
 
 addMultipleChoiceQuestion.addEventListener('click', function() {
 
