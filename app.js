@@ -89,21 +89,19 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     let choiceBCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[9].checked
     let choiceCCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[14].checked
     let choiceDCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[19].checked
-    let answer = ""
-    if (choiceACheckbox == "true"){
-       answer = choiceA
-      return answer}
-      else if
-        (choiceBCheckbox == true){
-        answer = choiceB
-      return answer }
-      else if (choiceCCheckbox == true){
-        answer = choiceC
-     return answer}
-
-      else if (choiceDCheckbox == true) {
-        answer = choiceD
-      return answer}
+    let answer
+    if (choiceACheckbox == true){
+      answer = choiceA
+      }
+    else if (choiceBCheckbox == true){
+      answer = choiceB
+      }
+    else if (choiceCCheckbox == true){
+      answer = choiceC
+      }
+    else if (choiceDCheckbox == true) {
+      answer = choiceD
+      }
 
 
     console.log(questionText, choiceA, choiceB, choiceC, choiceD)
