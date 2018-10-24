@@ -103,14 +103,15 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     console.log(questionText, choiceA, choiceB, choiceC, choiceD)
     questionMultipleChoiceObject = {
       "Answer": answer,
-      "Choice A": choiceA,
-      "Choice B": choiceB,
-      "Choice C": choiceC,
-      "Choice D": choiceD
+      "ChoiceA": choiceA,
+      "ChoiceB": choiceB,
+      "ChoiceC": choiceC,
+      "ChoiceD": choiceD,
+      "question": questionText
     }
 
-    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).child(questionText).set(questionMultipleChoiceObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).child(questionText).set(questionMultipleChoiceObject)
+    uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).set(questionMultipleChoiceObject)
+    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 2").child(unqueQuestionNumber).set(questionMultipleChoiceObject)
   })
 
 }

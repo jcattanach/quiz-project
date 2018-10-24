@@ -1,5 +1,8 @@
 const DATABASE = firebase.database()
 
+let container = document.getElementById('container')
+
+questionsArray = []
 testsArray = []
 
 function mapThruArray(tests){
@@ -8,6 +11,12 @@ function mapThruArray(tests){
     console.log(test.question)
     console.log(test.Answer)
     console.log(test.AltAnswerOne, test.AltAnswerTwo, test.AltAnswerThree)
+    liItems = `<li>
+    <h3>${test.question}<h/3>
+    <input type='text' placeholder='answer'/>
+    </li>`
+
+    container.insertAdjacentHTML('beforeend', liItems)
   })
 }
 
@@ -15,9 +24,10 @@ function mapThruArray(tests){
 
 var testRef = DATABASE.ref('Tests')
 testRef.on('value', function(snapshot) {
-  // tests = []
+  questionsArray = []
   var testUID = snapshot.val()
   console.log(testUID)
+  testsArray.push(testUID)
   snapshot.forEach(function(childSnapshot){
     var testName = childSnapshot.val()
     console.log(testName)
@@ -33,7 +43,7 @@ testRef.on('value', function(snapshot) {
           childChildChildChildSnapshot.forEach(function(x){
             var questionText = x.val()
             console.log(questionText)
-            testsArray.push(questionText)
+            questionsArray.push(questionText)
 
           })
 
@@ -42,7 +52,8 @@ testRef.on('value', function(snapshot) {
     })
 
   })
-  mapThruArray(testsArray)
+  console.log(testsArray)
+  mapThruArray(questionsArray)
 })
 
 
