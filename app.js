@@ -2,6 +2,7 @@
 const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
 const QUESTREF = DATABASE.ref("Questions")
+const ANSWERREF = DATABASE.ref("Answers")
 const USERCATEGORIESREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
@@ -106,7 +107,6 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
 
     console.log(questionText, choiceA, choiceB, choiceC, choiceD)
     questionMultipleChoiceObject = {
-      "Answer": answer,
       "ChoiceA": choiceA,
       "ChoiceB": choiceB,
       "ChoiceC": choiceC,
@@ -114,9 +114,11 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
       "question": questionText,
       "testID": uniqueTestIDRef.path.pieces_[1]
     }
+    answerMultipleChoiceObject = {"Answer": answer}
     let uniqueTestID = { Test: uniqueTestIDRef.path.pieces_[1]}
     uniqueTestIDRef.set(testTitle)
     QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
+    ANSWERREF.child(unqiueQuestionNumber).set(answerMultipleChoiceObject)
     USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").set(uniqueTestID)
   })
 
