@@ -5,22 +5,22 @@ let testIDName = document.getElementById('testIDName')
 let button = document.getElementById('button')
 let questionsListElement = document.getElementById('questionsListElement')
 
-
+let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc()'>Submit Test</button>`
 questions = []
+
+function submitTestFunc(){
+  console.log('test submitted')
+}
 
 button.addEventListener('click', function() {
   questionsListElement.innerHTML = ''
   let testID = testIDName.value
   pullData(testID)
 
-
-
 })
 function checkID(list, testID){
   list.map(function(question){
-    console.log(question.testID)
     if(question.testID == testID){
-      console.log(question.question)
       liItems = `<li>
     <h4>${question.question}<br>A.
     <input type="checkbox"/>
@@ -34,21 +34,17 @@ function checkID(list, testID){
     </li>`
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)
-  }
-  })
+  }})
+  questionsListElement.insertAdjacentHTML('beforeend', submitButton)
 }
 function pullData(testID) {
 questRef.on('value', function(snapshot) {
   questions = []
-  console.log(snapshot.val())
   snapshot.forEach(function(childSnapshot){
     let questionData = childSnapshot.val()
     let questionTestID = questionData.testID
-    console.log(questionTestID)
-
     questions.push(questionData)
   })
-  console.log(questions)
   checkID(questions, testID)
 })
 }
