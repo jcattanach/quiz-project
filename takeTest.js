@@ -9,16 +9,19 @@ let questionsListElement = document.getElementById('questionsListElement')
 questions = []
 
 button.addEventListener('click', function() {
+  questionsListElement.innerHTML = ''
   let testID = testIDName.value
+  pullData(testID)
 
-function checkID(list){
+
+
+})
+function checkID(list, testID){
   list.map(function(question){
     console.log(question.testID)
     if(question.testID == testID){
-      console.log(question.question, question.Answer)
-
-
-    let liItems = `<li>
+      console.log(question.question)
+      liItems = `<li>
     <h4>${question.question}<br>A.
     <input type="checkbox"/>
     <label>${question.ChoiceA}</label><br>B.
@@ -34,8 +37,9 @@ function checkID(list){
   }
   })
 }
-
+function pullData(testID) {
 questRef.on('value', function(snapshot) {
+  questions = []
   console.log(snapshot.val())
   snapshot.forEach(function(childSnapshot){
     let questionData = childSnapshot.val()
@@ -45,6 +49,6 @@ questRef.on('value', function(snapshot) {
     questions.push(questionData)
   })
   console.log(questions)
-  checkID(questions)
+  checkID(questions, testID)
 })
-})
+}
