@@ -14,14 +14,18 @@ let currentUserID = currentJSUser
 //   .then(function (user) {
 
 viewTestsBtn.addEventListener('click',function(){
-  testsRef.on('value',function(snapshot){
+  usersRef.on('value',function(snapshot){
       testsList.innerHTML = ''
       snapshot.forEach(function(childSnapshot){
+        childSnapshot.forEach(function(childChildSnapshot){
+          if (childChildSnapshot.val() == "Teacher"){
         console.log(childSnapshot.val())
         console.log(childSnapshot.key)
-        key = childSnapshot.key
-        value = childSnapshot.val()
+        key = childChildSnapshot.key
+        value = childChildSnapshot.val()
         testsList.innerHTML += `<li>ID: ${key} - ${value}</li>`
+      }
+      })
       })
     })
     })
