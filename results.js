@@ -1,61 +1,60 @@
-let currentJSUser = localStorage.getItem("vCurrentUser")
-let currentUserID = currentJSUser
-console.log(currentUserID)
-
-
 let testContainer = document.getElementById("testContainer")
-let testList = document.getElementById("testList")
+let testsList = document.getElementById("testsList")
 let resultsContainer = document.getElementById("resultsContainer")
 let resultsList = document.getElementById("resultsList")
-let viewResultsBtn = document.getElementById("viewResultsBtn")
-let testTextBox = document.getElementById("testTextBox")
-let logOutButton = document.getElementById("logOutButton")
-
+let viewTestsBtn = document.getElementById("viewTestsBtn")
 const database = firebase.database()
 const testsRef = database.ref("Tests")
 const usersRef =  database.ref("Users")
 
-let tests = []
+let currentJSUser = localStorage.getItem("vCurrentUser")
+let currentUserID = currentJSUser
 
-viewResultsBtn.addEventListener('click',function(){
-let testName = testTextBox.value
-let testItem =  `
-<li><label>${testName}</label>
-    <table>
-  <tr>
-    <th>Name</th>
-    <th>Score</th>
-  </tr>
-  <tr>
-    <td>John Doe</td>
-    <td>82%</td>
-  </tr>
-  <tr>
-    <td>Mary Doe</td>
-    <td>95%</td>
-  </tr>
-</table>
-</li>
-`
-resultsList.insertAdjacentHTML("beforeend", testItem)
-})
+// firebase.auth().signInWithEmailAndPassword(email, password)
+//   .then(function (user) {
+
+viewTestsBtn.addEventListener('click',function(){
+  testsRef.on('value',function(snapshot){
+      testsList.innerHTML = ''
+      snapshot.forEach(function(childSnapshot){
+        console.log(childSnapshot.val())
+        console.log(childSnapshot.key)
+        key = childSnapshot.key
+        value = childSnapshot.val()
+        testsList.innerHTML += `<li>ID: ${key} - ${value}</li>`
+      })
+    })
+    })
+// testName = testsRef
+// let testItem =
+// <li><label>${testName}</label>
+//     <table>
+//   <tr>
+//     <th>Name</th>
+//     <th>Score</th>
+//   </tr>
+//   <tr>
+//     <td>John Doe</td>
+//     <td>82%</td>
+//   </tr>
+//   <tr>
+//     <td>Mary Doe</td>
+//     <td>95%</td>
+//   </tr>
+// </table>
+// </li>
+// `
+// resultsList.insertAdjacentHTML("beforeend", testItem)
+// })
 
 // function displayOrders() {
 //
 //   testsRef.on('value',function(snapshot){
 //       resultsList.innerHTML = ''
-//       tests = []
 //       snapshot.forEach(function(childSnapshot){
-//         let key = childSnapshot.val().name
-//         let value = childSnapshot.val().score
-//         tests.push(childSnapshot.val())
+//         resultsList.innerHTML = childSnapshot.val()
+//
 //       })
-//       tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
+//     //  tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
 //     })
 // }
-
-logOutButton.addEventListener('click', function () {
-currentUserID = ""
-  localStorage.setItem("vCurrentUser", currentUserID)
-  document.location.href = "register.html"
-})
