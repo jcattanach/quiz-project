@@ -61,13 +61,12 @@ starttime()
 
 
  function starttime() {
-    var fiveMinutes = 60 * 5
+    var fiveMinutes = 30
       //showtime();
       var showcurtime = moment();
       var curtimeformat = showcurtime.format('h:mm:ss a');
       var showendtime = showcurtime.add(fiveMinutes, 's');
       var endtimeFormat = showendtime.format('h:mm:ss a');
-      console.log(curtimeformat,endtimeFormat)
       document.getElementById("starttime").innerHTML = `<h4>You started your Exam at ${curtimeformat} </h4>`; document.getElementById("endtime").innerHTML = `<h4>You should finish on your Exam at ${endtimeFormat}  </h4>`;
 
 
@@ -92,5 +91,14 @@ starttime()
         if (--timer < 0) {
             timer = duration;
         }
+        if (timer == 0) {
+          currentUserID = ""
+          localStorage.setItem("vCurrentUser", currentUserID)
+          document.location.href = "register.html"
+        }
     }, 1000);
 }
+
+  setInterval(function() {
+      alert("Message to alert every 5 seconds");
+  }, 5000);
