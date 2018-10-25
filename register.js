@@ -60,8 +60,8 @@ function register() {
 
       function saveTeacher(userID) {
 
-        let currentUser = { UserID: userID,
-                            AccountType : "Teacher",
+        let currentUser = { "UserID": userID,
+                            "AccountType" : "Teacher",
                           }
         userCategoryRef.child(userID).set(currentUser)
       }
