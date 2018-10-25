@@ -27,15 +27,17 @@ function checkID(list, testID){
       questionsForThisTestKey.push(questionKey)
       liItems = `<li>
     <h4>${question.val().question}<br>A.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceA}</label><br>B.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceB}</label><br>C.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceC}</label><br>D.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceD}</label>
+    <input class='checkboxAnswerOne' id='checkboxAnswerOne + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerOne' id='labelAnswerOne + ${question.key}' >${question.val().ChoiceA}</label><br>B.
+    <input class='checkboxAnswerTwo' id='checkboxAnswerTwo + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerTwo' id='labelAnswerTwo + ${question.key}' >${question.val().ChoiceB}</label><br>C.
+    <input class='checkboxAnswerThree' id='checkboxAnswerThree + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerThree' id='labelAnswerThree + ${question.key}' >${question.val().ChoiceC}</label><br>D.
+    <input class='checkboxAnswerFour' id='checkboxAnswerFour + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerFour' id='labelAnswerFour + ${question.key}' >${question.val().ChoiceD}</label>
     </li>`
+
+    console.log(`checkboxAnswerTwo + ${question.key}`)
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)
   }})
