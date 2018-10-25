@@ -61,7 +61,7 @@ starttime()
 
 
  function starttime() {
-    var fiveMinutes = 30
+    var fiveMinutes = 310
       //showtime();
       var showcurtime = moment();
       var curtimeformat = showcurtime.format('h:mm:ss a');
@@ -91,14 +91,20 @@ starttime()
         if (--timer < 0) {
             timer = duration;
         }
+        if (minutes >= 5 && minutes % 5 == 0 && seconds == 0) {
+            console.log("Message to alert every 5 minutes")
+        }
+        else if (5 > minutes >= 1 && seconds == 0){
+            console.log("Message to alert every 1 minutes")
+        }
+        else if (minutes = 0 && seconds % 30) {
+            console.log("Message to alert every 30 seconds")
+        }
         if (timer == 0) {
           currentUserID = ""
           localStorage.setItem("vCurrentUser", currentUserID)
           document.location.href = "register.html"
         }
-    }, 1000);
+    }
+    , 1000);
 }
-
-  setInterval(function() {
-      alert("Message to alert every 5 seconds");
-  }, 5000);
