@@ -1,5 +1,5 @@
 let container = document.getElementById("container")
-
+let timeDisplayElement = document.querySelector('#timeDisplay');
 let header = document.createElement("div")
 header.className = "header"
 container.appendChild(header)
@@ -50,6 +50,47 @@ instructions.appendChild(startExam)
 startExam.innerHTML = "Start Exam"
 
 startExam.addEventListener("click",function(){
-  location.href = "file:///Users/eslamamin/Desktop/practise/test.html";
 
+starttime()
 })
+
+ var date = new Date()
+ console.log(date)
+ var year = date.getFullYear()
+ var month = date.getMonth()
+
+
+ function starttime() {
+    var fiveMinutes = 60 * 5
+      //showtime();
+      var showcurtime = moment();
+      var curtimeformat = showcurtime.format('h:mm:ss a');
+      var showendtime = showcurtime.add(fiveMinutes, 's');
+      var endtimeFormat = showendtime.format('h:mm:ss a');
+      console.log(curtimeformat,endtimeFormat)
+      document.getElementById("starttime").innerHTML = `<h4>You started your Exam at ${curtimeformat} </h4>`; document.getElementById("endtime").innerHTML = `<h4>You should finish on your Exam at ${endtimeFormat}  </h4>`;
+
+
+
+      startTimer(fiveMinutes);
+
+  }
+
+  //starttime()
+
+  function startTimer(duration) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        timeDisplayElement.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
