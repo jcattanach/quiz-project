@@ -55,7 +55,7 @@ questRef.on('value', function(snapshot) {
 
   })
   checkID(questions, testID)
-  
+
 })
 }
 
@@ -69,8 +69,6 @@ function submitTestFunc(list, list2){
   questionNumberArray.map(function(uniqueQuestionNumber){
     console.log(uniqueQuestionNumber)
     let choiceA = document.getElementById("labelAnswerOne" + uniqueQuestionNumber).innerHTML
-    console.log(questionNumberArray)
-    console.log(choiceA)
     let choiceB = document.getElementById("labelAnswerTwo" + uniqueQuestionNumber).innerHTML
     let choiceC = document.getElementById("labelAnswerThree" + uniqueQuestionNumber).innerHTML
     let choiceD = document.getElementById("labelAnswerFour" + uniqueQuestionNumber).innerHTML
@@ -92,6 +90,8 @@ function submitTestFunc(list, list2){
     else if (checkboxAnswerFour == true) {
       answer = choiceD
       }
-      console.log(answer)
+
+      let answerCheck = { Answer : answer, questionId : uniqueQuestionNumber}
+      console.log(answerCheck)
   })
 }
