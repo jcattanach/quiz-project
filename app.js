@@ -3,7 +3,7 @@ const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
 const QUESTREF = DATABASE.ref("Questions")
 const ANSWERREF = DATABASE.ref("Answers")
-const USERCATEGORIESREF = DATABASE.ref("Users")
+const USERCATEGORYREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
@@ -80,16 +80,16 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
   testQuestionType2IDArray.map(function (unqiueQuestionNumber) {
     console.log(unqiueQuestionNumber)
     console.log(document.getElementById(unqiueQuestionNumber).childNodes)
-    let questionText = document.getElementById(unqiueQuestionNumber).childNodes[1].value
-    let choiceA = document.getElementById(unqiueQuestionNumber).childNodes[6].value
-    let choiceB = document.getElementById(unqiueQuestionNumber).childNodes[11].value
-    let choiceC = document.getElementById(unqiueQuestionNumber).childNodes[16].value
-    let choiceD = document.getElementById(unqiueQuestionNumber).childNodes[21].value
+    let questionText = document.getElementById("multipleChoiceQuestion" + unqiueQuestionNumber).value
+    let choiceA = document.getElementById("multipleChoiceAnswerOne" + unqiueQuestionNumber).value
+    let choiceB = document.getElementById("multipleChoiceAnswerTwo" + unqiueQuestionNumber).value
+    let choiceC = document.getElementById("multipleChoiceAnswerThree" + unqiueQuestionNumber).value
+    let choiceD = document.getElementById("multipleChoiceAnswerFour" + unqiueQuestionNumber).value
 
-    let choiceACheckbox = document.getElementById(unqiueQuestionNumber).childNodes[4].checked
-    let choiceBCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[9].checked
-    let choiceCCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[14].checked
-    let choiceDCheckbox = document.getElementById(unqiueQuestionNumber).childNodes[19].checked
+    let choiceACheckbox = document.getElementById("checkboxMultipleChoiceAnswerOne" + unqiueQuestionNumber).checked
+    let choiceBCheckbox = document.getElementById("checkboxMultipleChoiceAnswerTwo" + unqiueQuestionNumber).checked
+    let choiceCCheckbox = document.getElementById("checkboxMultipleChoiceAnswerThree" + unqiueQuestionNumber).checked
+    let choiceDCheckbox = document.getElementById("checkboxMultipleChoiceAnswerFour" +unqiueQuestionNumber).checked
     let answer
     if (choiceACheckbox == true){
       answer = choiceA
@@ -119,14 +119,16 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     uniqueTestIDRef.set(testTitle)
     QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
     ANSWERREF.child(unqiueQuestionNumber).set(answerMultipleChoiceObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").set(uniqueTestID)
+    USERCATEGORYREF.child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).set(testTitle)
   })
 
 }
 
 submitButton.addEventListener('click', function() {
   saveTestToDatabase()
-
+  testQuestionType2IDArray = []
+  listQuestionAndAnswer.innerHTML = ""
+  headerQuizName.innerHTML = ""
 })
 
 btnSubmitQuizName.addEventListener('click', function() {
@@ -162,16 +164,16 @@ let number = Math.floor(Math.random() * 100000000000000000000)
 
   enterMultipleChoice = `
 <li li class="questionType2LI" id="${number}">
-  <input type="text" id="multipleChoiceQuestion" placeholder="Question"/><br>A.
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerOne"/>
-  <input type="text" id="multipleChoiceAnswerOne" placeholder="Answer" /><br>B.
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerTwo"/>
-  <input type="text" id="multipleChoiceAnswerTwo" placeholder="Answer" /><br>C.
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerThree"/>
-  <input type="text" id="multipleChoiceAnswerThree" placeholder="Answer" /><br>D.
-  <input type="checkbox" id="checkboxMultipleChoiceAnswerFour"/>
-  <input type="text" id="multipleChoiceAnswerFour" placeholder="Answer" />
-  <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
+  <input type="text" class="multipleChoiceQuestion" id="multipleChoiceQuestion${number}" placeholder="Question"/><br>A.
+  <input type="checkbox" class="checkboxMultipleChoiceAnswerOne" id="checkboxMultipleChoiceAnswerOne${number}"/>
+  <input type="text" class="multipleChoiceAnswerOne" id="multipleChoiceAnswerOne${number}" placeholder="Answer" /><br>B.
+  <input type="checkbox" class="checkboxMultipleChoiceAnswerTwo" id="checkboxMultipleChoiceAnswerTwo${number}"/>
+  <input type="text" class="multipleChoiceAnswerTwo" id="multipleChoiceAnswerTwo${number}" placeholder="Answer" /><br>C.
+  <input type="checkbox" class="checkboxMultipleChoiceAnswerThree" id="checkboxMultipleChoiceAnswerThree${number}"/>
+  <input type="text" class="multipleChoiceAnswerThree" id="multipleChoiceAnswerThree${number}" placeholder="Answer" /><br>D.
+  <input type="checkbox" class="checkboxMultipleChoiceAnswerFour" id="checkboxMultipleChoiceAnswerFour${number}"/>
+  <input type="text" class="multipleChoiceAnswerFour" id="multipleChoiceAnswerFour${number}" placeholder="Answer" />
+  <button class="deleteQuestion" id="deleteQuestion${number}" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
 </li>`
 
   testQuestionType2IDArray.push(number)
