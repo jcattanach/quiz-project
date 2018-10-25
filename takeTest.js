@@ -1,16 +1,17 @@
 const database = firebase.database()
 const questRef = database.ref('Questions')
+const answerRef = database.ref('Answers')
 
 let testIDName = document.getElementById('testIDName')
 let button = document.getElementById('button')
 let questionsListElement = document.getElementById('questionsListElement')
 
-let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc()'>Submit Test</button>`
-questions = []
+let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc(questionsForThisTest, questionsForThisTestKey)'>Submit Test</button>`
 
-function submitTestFunc(){
-  console.log('test submitted')
-}
+let questions = []
+let questionsForThisTest = []
+let questionsForThisTestKey = []
+
 
 button.addEventListener('click', function() {
   questionsListElement.innerHTML = ''
@@ -20,17 +21,20 @@ button.addEventListener('click', function() {
 })
 function checkID(list, testID){
   list.map(function(question){
-    if(question.testID == testID){
+    if(question.val().testID == testID){
+      questionsForThisTest.push(question.val())
+      let questionKey = question.key
+      questionsForThisTestKey.push(questionKey)
       liItems = `<li>
-    <h4>${question.question}<br>A.
+    <h4>${question.val().question}<br>A.
     <input type="checkbox"/>
-    <label>${question.ChoiceA}</label><br>B.
+    <label>${question.val().ChoiceA}</label><br>B.
     <input type="checkbox"/>
-    <label>${question.ChoiceB}</label><br>C.
+    <label>${question.val().ChoiceB}</label><br>C.
     <input type="checkbox"/>
-    <label>${question.ChoiceC}</label><br>D.
+    <label>${question.val().ChoiceC}</label><br>D.
     <input type="checkbox"/>
-    <label>${question.ChoiceD}</label>
+    <label>${question.val().ChoiceD}</label>
     </li>`
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)
@@ -41,10 +45,16 @@ function pullData(testID) {
 questRef.on('value', function(snapshot) {
   questions = []
   snapshot.forEach(function(childSnapshot){
-    let questionData = childSnapshot.val()
-    let questionTestID = questionData.testID
-    questions.push(questionData)
+    questions.push(childSnapshot)
+
   })
   checkID(questions, testID)
 })
+}
+
+function submitTestFunc(list, list2){
+  console.log(list)
+  console.log(list.length)
+  console.log(list2)
+  console.log(list2.length)
 }
