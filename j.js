@@ -49,6 +49,8 @@ startExam.id = "startbtn"
 instructions.appendChild(startExam)
 startExam.innerHTML = "Start Exam"
 
+
+
 startExam.addEventListener("click",function(){
 
 starttime()
@@ -61,7 +63,7 @@ starttime()
 
 
  function starttime() {
-    var fiveMinutes = 310
+    var fiveMinutes = 122
       //showtime();
       var showcurtime = moment();
       var curtimeformat = showcurtime.format('h:mm:ss a');
@@ -92,18 +94,20 @@ starttime()
             timer = duration;
         }
         if (minutes >= 5 && minutes % 5 == 0 && seconds == 0) {
-            console.log("Message to alert every 5 minutes")
+            console.log((minutes) + " Minutes Left")
         }
         else if (5 > minutes >= 1 && seconds == 0){
-            console.log("Message to alert every 1 minutes")
+            console.log((minutes) + " Minutes Left")
+            let popUpTime = document.getElementById("myPopup")
+            popUpTime.classList.toggle("show")
         }
-        else if (minutes = 0 && seconds % 30) {
-            console.log("Message to alert every 30 seconds")
+        else if (minutes == 0 && seconds % 30 == 0) {
+            console.log((seconds) + " Seconds Left")
         }
         if (timer == 0) {
           currentUserID = ""
           localStorage.setItem("vCurrentUser", currentUserID)
-          document.location.href = "register.html"
+          //document.location.href = "register.html"
         }
     }
     , 1000);
