@@ -3,7 +3,7 @@ const DATABASE = firebase.database()
 const TESTREF = DATABASE.ref("Tests")
 const QUESTREF = DATABASE.ref("Questions")
 const ANSWERREF = DATABASE.ref("Answers")
-const USERCATEGORIESREF = DATABASE.ref("Users")
+const USERCATEGORYREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
@@ -119,14 +119,16 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     uniqueTestIDRef.set(testTitle)
     QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
     ANSWERREF.child(unqiueQuestionNumber).set(answerMultipleChoiceObject)
-    USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").set(uniqueTestID)
+    USERCATEGORYREF.child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).set(testTitle)
   })
 
 }
 
 submitButton.addEventListener('click', function() {
   saveTestToDatabase()
-
+  testQuestionType2IDArray = []
+  listQuestionAndAnswer.innerHTML = ""
+  headerQuizName.innerHTML = ""
 })
 
 btnSubmitQuizName.addEventListener('click', function() {
