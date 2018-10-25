@@ -11,7 +11,8 @@ let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc(questions
 let questions = []
 let questionsForThisTest = []
 let questionsForThisTestKey = []
-
+let questionNumberArray = []
+let answersToBeChecked = []
 
 button.addEventListener('click', function() {
   questionsListElement.innerHTML = ''
@@ -27,15 +28,19 @@ function checkID(list, testID){
       questionsForThisTestKey.push(questionKey)
       liItems = `<li>
     <h4>${question.val().question}<br>A.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceA}</label><br>B.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceB}</label><br>C.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceC}</label><br>D.
-    <input type="checkbox"/>
-    <label>${question.val().ChoiceD}</label>
+    <input class='checkboxAnswerOne' id='checkboxAnswerOne + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerOne' id='labelAnswerOne + ${question.key}' >${question.val().ChoiceA}</label><br>B.
+    <input class='checkboxAnswerTwo' id='checkboxAnswerTwo + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerTwo' id='labelAnswerTwo + ${question.key}' >${question.val().ChoiceB}</label><br>C.
+    <input class='checkboxAnswerThree' id='checkboxAnswerThree + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerThree' id='labelAnswerThree + ${question.key}' >${question.val().ChoiceC}</label><br>D.
+    <input class='checkboxAnswerFour' id='checkboxAnswerFour + ${question.key}' type="checkbox"/>
+    <label class='labelAnswerFour' id='labelAnswerFour + ${question.key}' >${question.val().ChoiceD}</label>
     </li>`
+
+    console.log(`checkboxAnswerTwo + ${question.key}`)
+    questionNumberArray.push(liItems)
+
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)
   }})
@@ -49,6 +54,7 @@ questRef.on('value', function(snapshot) {
 
   })
   checkID(questions, testID)
+  return questionNumberArray
 })
 }
 
@@ -57,4 +63,33 @@ function submitTestFunc(list, list2){
   console.log(list.length)
   console.log(list2)
   console.log(list2.length)
+  console.log(questionNumberArray)
+
+  questionNumberArray.map(function(answerChoice){
+    console.log()
+    console.log(answerChoice)
+    let choiceA = document.querySelector(".labelAnswerOne").value
+    let choiceB = document.querySelector(".labelAnswerTwo").value
+    let choiceC = document.querySelector(".labelAnswerThree").value
+    let choiceD = document.querySelector(".labelAnswerFour").value
+
+    let checkboxAnswerOne = document.querySelector(".checkboxAnswerOne").checked
+    let checkboxAnswerTwo = document.querySelector(".checkboxAnswerTwo").checked
+    let checkboxAnswerThree = document.querySelector(".checkboxAnswerThree").checked
+    let checkboxAnswerFour = document.querySelector(".checkboxAnswerFour").checked
+    let answer
+    if (checkboxAnswerOne == true){
+      answer = choiceA
+      }
+    else if (checkboxAnswerTwo == true){
+      answer = choiceB
+      }
+    else if (checkboxAnswerThree == true){
+      answer = choiceC
+      }
+    else if (checkboxAnswerFour == true) {
+      answer = choiceD
+      }
+      console.log(answer)
+  })
 }
