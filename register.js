@@ -60,14 +60,14 @@ function register() {
 
       function saveTeacher(userID) {
 
-        let currentUser = { "UserID": userID,
-                            "AccountType" : "Teacher",
+        let currentUser = { UserID: userID,
+                            AccountType : "Teacher",
                           }
         userCategoryRef.child(userID).set(currentUser)
       }
       function saveStudent(userID) {
-        let currentUser = { "UserID": userID,
-                            "AccountType": "Student" }
+        let currentUser = { UserID: userID,
+                            AccountType: "Student" }
         userCategoryRef.child(userID).set(currentUser)
       }
       // create a new user using email and password
@@ -145,10 +145,11 @@ function userNotRegistedMessage() {
      userCategoryRef.on('value', function (snapshot){
        //console.log(snapshot.val())
        snapshot.forEach(function (childSnapshot){
-        // console.log(childSnapshot.val())
+        //console.log(childSnapshot.val())
          //console.log(childSnapshot.val().userID)
          //console.log(userID)
-         let userID2 = childSnapshot.val().userID
+         let userID2 = childSnapshot.val().UserID
+         //console.log(userID2)
          //console.log(childSnapshot.val().AccountType)
          if (userID2 == userID) {
            let loginAccountType = childSnapshot.val().AccountType
