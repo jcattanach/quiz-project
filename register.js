@@ -1,7 +1,7 @@
-var userID
+let userID
 
 const DATABASE = firebase.database()
-let userCategoriesRef = DATABASE.ref("Users")
+let userCategoryRef = DATABASE.ref("Users")
 
 let btnSelectLogin = document.getElementById("btnSelectLogin")
 let btnSelectRegister = document.getElementById("btnSelectRegister")
@@ -60,20 +60,21 @@ function register() {
 
       function saveTeacher(userID) {
 
-        let currentUser = { "User ID": userID,
-                            "Account Type" : "Teacher",
+        let currentUser = { UserID: userID,
+                            AccountType : "Teacher",
                           }
-        userCategoriesRef.child("Teachers").child(userID).child("Teacher Information").set(currentUser)
+        userCategoryRef.child(userID).set(currentUser)
       }
       function saveStudent(userID) {
-        let currentUser = { "User ID": userID,
-                            "Account Type": "Student" }
-        userCategoriesRef.child("Students").child(userID).set(currentUser)
+        let currentUser = { "UserID": userID,
+                            "AccountType": "Student" }
+        userCategoryRef.child(userID).set(currentUser)
       }
       // create a new user using email and password
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function (user) {
           console.log("User created")
+          console.log(user)
           let userID = user.user.uid
           console.log(userID)
           login()
@@ -113,9 +114,9 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(function (user) {
         console.log("User Signed In Successfully!!")
-        let userID = user.user.uid
+        userID = user.user.uid
         localStorage.setItem("vCurrentUser", userID)
-        testCreatorApp()
+        appDirector(userID)
       })
       .catch(function (error) {
         // Handle Errors here.
@@ -140,6 +141,31 @@ function userNotRegistedMessage() {
   regLogin.insertAdjacentHTML('beforeend', `<div>User Not Registered</div>`)
 }
 
+ function appDirector(userID) {
+     userCategoryRef.on('value', function (snapshot){
+       //console.log(snapshot.val())
+       snapshot.forEach(function (childSnapshot){
+        // console.log(childSnapshot.val())
+         //console.log(childSnapshot.val().userID)
+         //console.log(userID)
+         let userID2 = childSnapshot.val().userID
+         //console.log(childSnapshot.val().AccountType)
+         if (userID2 == userID) {
+           let loginAccountType = childSnapshot.val().AccountType
+           if (loginAccountType == "Student") {
+             testTakerApp()
+           }
+           else {
+             testCreatorApp()
+           }
+         }
+        })
+      })
+    }
+ 
 function testCreatorApp(){
   document.location.href = "createtest.html"
+}
+function testTakerApp() {
+  document.location.href = "takeTest.html"
 }
