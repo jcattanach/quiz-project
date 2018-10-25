@@ -13,6 +13,8 @@ let questionsForThisTest = []
 let questionsForThisTestKey = []
 let questionNumberArray = []
 let answersToBeChecked = []
+let allAnswers = []
+let answerDictList = []
 
 button.addEventListener('click', function() {
   questionsListElement.innerHTML = ''
@@ -38,9 +40,9 @@ function checkID(list, testID){
     <label class='labelAnswerFour' id='labelAnswerFour${question.key}' >${question.val().ChoiceD}</label>
     </li>`
 
-    console.log("checkboxAnswerTwo" + question.key)
+    //console.log("checkboxAnswerTwo" + question.key)
     questionNumberArray.push(question.key)
-    console.log(questionNumberArray)
+    //console.log(questionNumberArray)
 
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)
@@ -60,14 +62,8 @@ questRef.on('value', function(snapshot) {
 }
 
 function submitTestFunc(list, list2){
-  console.log(list)
-  console.log(list.length)
-  console.log(list2)
-  console.log(list2.length)
-  console.log(questionNumberArray)
 
   questionNumberArray.map(function(uniqueQuestionNumber){
-    console.log(uniqueQuestionNumber)
     let choiceA = document.getElementById("labelAnswerOne" + uniqueQuestionNumber).innerHTML
     let choiceB = document.getElementById("labelAnswerTwo" + uniqueQuestionNumber).innerHTML
     let choiceC = document.getElementById("labelAnswerThree" + uniqueQuestionNumber).innerHTML
@@ -91,7 +87,42 @@ function submitTestFunc(list, list2){
       answer = choiceD
       }
 
-      let answerCheck = { Answer : answer, questionId : uniqueQuestionNumber}
-      console.log(answerCheck)
+      let answerCheck = { Answer : answer,QuestionID : uniqueQuestionNumber}
+      answersToBeChecked.push(answerCheck)
+
+    })
+  answerRef.on('value', function(snapshot){
+    snapshot.forEach(function(childSnapshot){
+      allAnswers.push(childSnapshot)
+
+    })
+    compareAnswers(answersToBeChecked, allAnswers)
   })
+
+
 }
+
+
+function compareAnswers(userAnswersList , databaseAnswersList){
+    databaseAnswersList.map(function(answer){
+      let answerKey = answer.key
+      let answerAnswer = answer.val().Answer
+      let answerDict = { Answer : answerAnswer ,QuestionID : answerKey}
+      answerDictList.push(answerDict)
+    })
+    let count = 0
+    for(let i=0;i<answerDictList.length;i++){
+      for(let j=0;j<userAnswersList.length;j++){
+        if(answerDictList[i].QuestionID == userAnswersList[j].QuestionID){
+          // let correctAnswer = answerDictList[i].Answer
+          // let studentAnswer = userAnswersList[j].Answer
+          // let correctAnswerKey = answerDictList[i].QuestionID
+          // let studentAnswerKey = userAnswersList[j].QuestionID
+            if(answerDictList[i].Answer == userAnswersList[j].Answer){
+              console.log('true')          
+          }
+        }
+      }
+      }
+
+  }
