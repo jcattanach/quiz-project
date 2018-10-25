@@ -26,15 +26,41 @@ register()
 
 function register() {
   regLogin.innerHTML = `<h3>Register User</h3>
-    <input type="email" id="emailTextBox" />
-    <input type="password" id="passwordTextBox" />
-    <br>
-    <input type="radio" value="teacher" name="accountType"> Teacher
-    <input type="radio" value="student" name="accountType"> Student<br>
-    <button id="btnRegister">Register</button>`
+  <div>
+    <label>Enter Email as Username</label>
+    <input type="email" id="emailTextBox" placeholder="Enter your e-mail address as username"/>
+    <input type="email" id="emailTextBox2" placeholder="Confirm e-mail address"" />
+  </div>
+  <div>
+    <label>Create Password</label>
+    <input type="password" id="passwordTextBox" placeholder="Create a password"/>
+    <input type="password" id="passwordTextBox2" placeholder="Confirm password"/>
+  </div>
+  <div>
+    <label>Enter Name</label>
+    <input type ="textbox" id="firstNameTextBox" placeholder="First Name"/>
+    <input type ="textbox" id="lastNameTextBox" placeholder="Last Name"/>
+  </div>
+   <div>
+    <label>School Name</label>
+    <input type ="textbox" id="schoolNameTextBox" placeholder="Enter School"/>
+  </div>
+  <div>
+    <label>Select Account Type</label><br>
+    <input type="radio" value="teacher" name="accountType"> Teacher</input>
+    <input type="radio" value="student" name="accountType"> Student</input>
+  </div>
+  <div>
+    <button id="btnRegister">Register</button>
+  </div>`
 
     let emailTextBox = document.getElementById("emailTextBox")
+    let emailTextBox2 = document.getElementById("emailTextBox2")
     let passwordTextBox = document.getElementById("passwordTextBox")
+    let passwordTextBox2 = document.getElementById("passwordTextBox2")
+    let firstNameTextBox = document.getElementById("firstNameTextBox")
+    let lastNameTextBox = document.getElementById("lastNameTextBox")
+    let schoolNameTextBox = document.getElementById("schoolNameTextBox")
 
 
     let btnRegister = document.getElementById("btnRegister")
@@ -46,7 +72,12 @@ function register() {
     btnRegister.addEventListener('click', function () {
 
       let email = emailTextBox.value
+      let email2 = emailTextBox2.value
       let password = passwordTextBox.value
+      let password2 = passwordTextBox2.value
+      let firstName = firstNameTextBox.value
+      let lastName = lastNameTextBox.value
+      let schoolName = schoolNameTextBox.value
       let radioValue = document.querySelector('input[name="accountType"]:checked').value
 
       function saveUser(userID) {
@@ -61,44 +92,60 @@ function register() {
       function saveTeacher(userID) {
 
         let currentUser = { UserID: userID,
+                            FirstName : firstName,
+                            LastName: lastName,
+                            School: schoolName,
                             AccountType : "Teacher",
                           }
         userCategoryRef.child(userID).set(currentUser)
       }
       function saveStudent(userID) {
         let currentUser = { UserID: userID,
+                            FirstName: firstName,
+                            LastName: lastName,
+                            School: schoolName,
                             AccountType: "Student" }
         userCategoryRef.child(userID).set(currentUser)
       }
       // create a new user using email and password
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function (user) {
-          console.log("User created")
-          console.log(user)
-          let userID = user.user.uid
-          console.log(userID)
-          login()
-          saveUser(userID)
+      if (email === email2 && password === password2) {
 
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode === "auth/email-already-in-use") {
-            login()
-            userPreRegisterMessage()
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function (user) {
+              console.log("User created")
+              console.log(user)
+              let userID = user.user.uid
+              console.log(userID)
+              login()
+              saveUser(userID)
+
+            })
+            .catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              if (errorCode === "auth/email-already-in-use") {
+                login()
+                userPreRegisterMessage()
+              }
+            })
           }
-        })
-
+      else if (email !== email2){
+        alert("Emails do not match")
+      }
+      else if (password !== password2) {
+        alert("Passwords do not match")
+      }
     })
   }
 
 function login() {
 
   regLogin.innerHTML = `<h3>Login User</h3>
-<input type="email" id="loginEmailTextBox" />
-<input type="password" id="loginPasswordTextBox" />
+<label>Username</label>
+<input type="email" id="loginEmailTextBox" placeholder="Enter email address" />
+<label>Password</label>
+<input type="password" id="loginPasswordTextBox" placeholder="Enter password" />
 <button id="btnLogin">Login</button>
 </body>`
 
@@ -157,15 +204,15 @@ function userNotRegistedMessage() {
              testTakerApp()
            }
            else {
-             testCreatorApp()
+             teacherOptions()
            }
          }
         })
       })
     }
- 
-function testCreatorApp(){
-  document.location.href = "createtest.html"
+
+function teacherOptions(){
+  document.location.href = "teacher_options.html"
 }
 function testTakerApp() {
   document.location.href = "takeTest.html"

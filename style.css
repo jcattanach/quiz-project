@@ -1,0 +1,21 @@
+.deleteQuestion {
+  background-color: red;
+  margin-left: 15px;
+}
+#addMultipleChoiceQuestion {
+  background-color: lightgreen;
+}
+#addQuestion {
+  background-color: lightgreen;
+}
+#btnSubmitQuizName {
+  background-color: blue;
+  color: white;
+}
+#submitButton {
+  background-color: blue;
+  color: white;
+}
+#listQuestionAndAnswer li {
+  margin-bottom: 10px;
+}
