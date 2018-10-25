@@ -10,25 +10,36 @@ const usersRef =  database.ref("Users")
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
 
-// firebase.auth().signInWithEmailAndPassword(email, password)
-//   .then(function (user) {
+firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(function (user) {
+    userID = user.user.uid
+    localStorage.setItem("vCurrentUser", userID)
+    appDirector(userID)
+  })
 
-viewTestsBtn.addEventListener('click',function(){
+viewTestsBtn.addEventListener('click',function(userID){
+      showtests(userID)
+    })
+
+
+function showtests(userID){
   usersRef.on('value',function(snapshot){
       testsList.innerHTML = ''
       snapshot.forEach(function(childSnapshot){
         childSnapshot.forEach(function(childChildSnapshot){
-          if (childChildSnapshot.val() == "Teacher"){
-        console.log(childSnapshot.val())
-        console.log(childSnapshot.key)
-        key = childChildSnapshot.key
-        value = childChildSnapshot.val()
-        testsList.innerHTML += `<li>ID: ${key} - ${value}</li>`
+          if (childChildSnapshot.key == "Tests"){
+            childChildSnapshot.forEach(function(childChildChildSnapshot){
+              key = childChildChildSnapshot.key
+              value = childChildChildSnapshot.val()
+        testsList.innerHTML += `<li>Test ID: ${key} <br> Test Name: ${value}</li>`
+      })
       }
       })
       })
     })
-    })
+
+}
+
 // testName = testsRef
 // let testItem =
 // <li><label>${testName}</label>
