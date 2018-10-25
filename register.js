@@ -26,22 +26,22 @@ register()
 
 function register() {
   regLogin.innerHTML = `<h3>Register User</h3>
-  <div>  
+  <div>
     <label>Enter Email as Username</label>
     <input type="email" id="emailTextBox" placeholder="Enter your e-mail address as username"/>
     <input type="email" id="emailTextBox2" placeholder="Confirm e-mail address"" />
   </div>
-  <div>  
+  <div>
     <label>Create Password</label>
     <input type="password" id="passwordTextBox" placeholder="Create a password"/>
     <input type="password" id="passwordTextBox2" placeholder="Confirm password"/>
-  </div>  
-  <div>  
+  </div>
+  <div>
     <label>Enter Name</label>
     <input type ="textbox" id="firstNameTextBox" placeholder="First Name"/>
     <input type ="textbox" id="lastNameTextBox" placeholder="Last Name"/>
   </div>
-   <div>  
+   <div>
     <label>School Name</label>
     <input type ="textbox" id="schoolNameTextBox" placeholder="Enter School"/>
   </div>
@@ -50,7 +50,7 @@ function register() {
     <input type="radio" value="teacher" name="accountType"> Teacher</input>
     <input type="radio" value="student" name="accountType"> Student</input>
   </div>
-  <div>  
+  <div>
     <button id="btnRegister">Register</button>
   </div>`
 
@@ -109,7 +109,7 @@ function register() {
       }
       // create a new user using email and password
       if (email === email2 && password === password2) {
-      
+
           firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(function (user) {
               console.log("User created")
@@ -204,15 +204,15 @@ function userNotRegistedMessage() {
              testTakerApp()
            }
            else {
-             testCreatorApp()
+             teacherOptions()
            }
          }
         })
       })
     }
- 
-function testCreatorApp(){
-  document.location.href = "createtest.html"
+
+function teacherOptions(){
+  document.location.href = "teacher_options.html"
 }
 function testTakerApp() {
   document.location.href = "takeTest.html"
