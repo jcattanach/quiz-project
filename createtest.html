@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="main.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <title>Create A Quiz</title>
+  <title>Create A Test</title>
 </head>
 <body>
   <button id="logOutButton">Log Out</button>
-  <h1>Create a test or quiz</h1>
+  <button id="backButton">Go back</button>
+  <h1>Create a test</h1>
   <input type="text" id="textboxQuizName" placeholder="Name of Quiz"/>
   <input type="text" id="textboxQuizTimeLimit" placeholder="Time Limit (minutes)" />
   <button id="btnSubmitQuizName">Add</button>
@@ -19,7 +21,7 @@
     <div id="quizForm">
       <div id = "quizInformation">
         <label id="testName">Test Name: <h3 id = "headerQuizName"></h3></label>
-        <label id="testTimeLimit">Time Limit: <h3 id = "headerTimeLimit" ></h3> minutes</label>
+        <label id="testTimeLimit">Time Limit: <h3 id = "headerTimeLimit" ></h3> Minutes</label>
       </div>
       <ol id="listQuestionAndAnswer">
       </ol>

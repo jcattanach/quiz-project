@@ -16,6 +16,7 @@ let headerQuizName = document.getElementById('headerQuizName')
 let headerTimeLimit = document.getElementById('headerTimeLimit')
 //let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
+let backButton = document.getElementById('backButton')
 
 let submitButton = document.getElementById('submitButton')
 
@@ -23,6 +24,13 @@ let logOutButton = document.getElementById("logOutButton")
 let number
 //testQuestionType1IDArray = []
 testQuestionType2IDArray = []
+
+backButton.addEventListener('click', function () {
+
+  currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "teacher_options.html"
+})
 
 function deleteQuestionFunction(listItem) {
   whichList = listItem.parentElement
