@@ -24,13 +24,20 @@ font-size: 20px;
 }
 
 /* Popup container */
-.popup {
+/* .popup {
     position: relative;
     justify-items: center;
     cursor: pointer;
-}
+} */
 
 /* The actual popup (appears on top) */
+
+.popup {
+  position: fixed;
+  top: 40px;
+  left:50%;
+  transform: translateX(-50%);
+}
 .popup .popuptext {
     visibility: hidden;
     width: 160px;
@@ -63,6 +70,8 @@ font-size: 20px;
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
+
+
 }
 
 /* Add animation (fade in the popup) */
@@ -96,5 +105,3 @@ h3 {
 #box {
   background-color: white;
   color: black;
-
-}
