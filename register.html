@@ -3,55 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Take Test</title>
-    <link rel="stylesheet" type="text/css" href="student.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <title>Test Creator Login</title>
+    <!-- <link rel="stylesheet" type="text/css" href="register.css" /> -->
     <!-- <link rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 480px)" href="mobile.css" />
     <link rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" href="desktop.css" /> -->
-    <script src="moment.min.js"></script>
-    <script>
-        moment().format();
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+    <link rel="stylesheet" href="register.css" type="text/css"/>
 
 </head>
 
 <body>
-  <div>
- <h3>Enter the Test ID below</h3>
- <input type='text' id="testIDName" placeholder="Enter Test ID"/>
- <input type='text' id="teacherIdTextbox" placeholder="Enter Teacher ID"/>
- <button id='buttonSubmit'>submit</button>
+  <img src="images/logo_small.jpg" alt="logo">
+<div id="regLogin">
+    <button id="btnSelectRegister">Register</button>
+    <button id="btnSelectLogin">Login</button>
 </div>
 
-   <table>
-       <tr>
-         <td id="timeDisplay"></td>
-       </tr>
-       <tr>
-         <td id="starttime"></td>
-       </tr>
-       <tr>
-         <td id ="endtime"></td>
-       </tr>
-
-   </table>
-   <div id="showtime" ></div>
-  <div class="popup">
-    <span class="popuptext" id="myPopup">Popup text...</span>
-  </div>
-
-  <div id="container">
- </div>
-
-
-   <div id="testContainer">
-     <ol id='questionsListElement'>
-     </ol>
-   </div>
-   <button id="logOutButton">Log Out</button>
 
 </body>
+
+
+
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-database.js"></script>
@@ -68,7 +41,6 @@
     };
     firebase.initializeApp(config);
 </script>
-<script src="takeTest.js"></script>
-<!-- <script src="student.js"></script> -->
+<script src="register.js"></script>
 
 </html>
