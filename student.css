@@ -24,9 +24,11 @@ font-size: 20px;
 }
 
 /* Popup container */
-/* .popup {
-    position: relative;
-    justify-items: center;
+.popup {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
     cursor: pointer;
 } */
 
