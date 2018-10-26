@@ -1,3 +1,7 @@
+let currentJSUser = localStorage.getItem("vCurrentUser")
+let currentUserID = currentJSUser
+console.log(currentUserID)
+
 const database = firebase.database()
 const questRef = database.ref('Questions')
 const answerRef = database.ref('Answers')
@@ -5,7 +9,7 @@ const answerRef = database.ref('Answers')
 let testIDName = document.getElementById('testIDName')
 let questionsListElement = document.getElementById('questionsListElement')
 let startExam = document.createElement("button")
-
+let logOutButton = document.getElementById("logOutButton")
 let buttonSubmit = document.getElementById('buttonSubmit')
 let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc(questionsForThisTest, questionsForThisTestKey)'>Submit Test</button>`
 
@@ -247,3 +251,8 @@ startTime()
     }
     , 1000);
 }
+logOutButton.addEventListener('click', function () {
+currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "index.html"
+})

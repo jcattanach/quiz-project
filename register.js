@@ -29,7 +29,7 @@ function register() {
   <div>
     <label>Enter Email as Username</label>
     <input type="email" id="emailTextBox" placeholder="Enter your e-mail address as username"/>
-    <input type="email" id="emailTextBox2" placeholder="Confirm e-mail address"" />
+    <input type="email" id="emailTextBox2" placeholder="Confirm e-mail address" />
   </div>
   <div>
     <label>Create Password</label>
@@ -215,5 +215,5 @@ function teacherOptions(){
   document.location.href = "teacher_options.html"
 }
 function testTakerApp() {
-  document.location.href = "takeTest.html"
+  document.location.href = "student.html"
 }
