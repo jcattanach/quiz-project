@@ -22,7 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             childChildSnapshot.forEach(function(childChildChildSnapshot){
               key = childChildChildSnapshot.key
               value = childChildChildSnapshot.val()
-        testsList.innerHTML += `<li><a href="#" onclick="javascript:showResults()">${value} ${key} </a></li>`
+        testsList.innerHTML += `<li><a href="#" onclick="javascript:showResults()">${value}</a> ${key}</li>`
       })
       }
       })
@@ -33,10 +33,32 @@ firebase.auth().onAuthStateChanged(function(user) {
 }
 })
 
-// function showresults(){
-//
-//     resultsList.innerHTML +=
-// }
+function showresults(){
+  firebase.auth().onAuthStateChanged(function(user) {
+   if (user) {
+     viewTestsBtn.addEventListener('click', function () {
+    usersRef.on('value',function(snapshot){
+        testsList.innerHTML = ''
+        snapshot.forEach(function(childSnapshot){
+          if (childSnapshot.key == currentUserID){
+          childSnapshot.forEach(function(childChildSnapshot){
+            if (childChildSnapshot.key == "Students"){
+              childChildSnapshot.forEach(function(childChildChildSnapshot){
+                key = childChildChildSnapshot.key
+                value = childChildChildSnapshot.val()
+          resultsList.innerHTML += `<li><a href="#" onclick="javascript:showResults()">${firstName} ${lastName} ${grade}</a></li>`
+        })
+        }
+        })
+      }
+        })
+      })
+    })
+  }
+  })
+
+
+}
 
 
 let logOutButton = document.getElementById("logOutButton")
