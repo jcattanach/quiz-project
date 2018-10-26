@@ -12,6 +12,7 @@ let startExam = document.createElement("button")
 let logOutButton = document.getElementById("logOutButton")
 let buttonSubmit = document.getElementById('buttonSubmit')
 let submitButton = `<button id="btnTestSubmit" onclick='submitTestFunc(questionsForThisTest, questionsForThisTestKey)'>Submit Test</button>`
+let teacherIdTextbox = document.getElementById('teacherIdTextbox')
 
 let questions = []
 let questionsForThisTest = []
@@ -22,6 +23,7 @@ let allAnswers = []
 let answerDictList = []
 
 buttonSubmit.addEventListener('click',function(){
+  let teacherID = teacherIdTextbox.value
   questionsListElement.innerHTML = ''
   let testID = testIDName.value
   pullData(testID)
