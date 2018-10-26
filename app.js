@@ -10,8 +10,10 @@ let currentUserID = currentJSUser
 //console.log(currentUserID)
 //variable element names
 let textboxQuizName = document.getElementById('textboxQuizName')
+let textboxQuizTimeLimit = document.getElementById('textboxQuizTimeLimit')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
+let headerTimeLimit = document.getElementById('headerTimeLimit')
 //let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
 
@@ -43,10 +45,11 @@ function deleteQuestionFunction(listItem) {
 
 function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
+  let testTimeLimit = headerTimeLimit.innerHTML
   let uniqueTestIDRef = TESTREF.push()
   console.log(uniqueTestIDRef)
   //saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef)
-  saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef)
+  saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef, testTimeLimit)
 
 }
 
@@ -74,7 +77,7 @@ function saveTestToDatabase(){
 
 // }
 
-function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
+function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef, testTimeLimit) {
 
   console.log(uniqueTestIDRef.path.pieces_[1])
   testQuestionType2IDArray.map(function (unqiueQuestionNumber) {
@@ -119,7 +122,7 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
     uniqueTestIDRef.set(testTitle)
     QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
     ANSWERREF.child(unqiueQuestionNumber).set(answerMultipleChoiceObject)
-    USERCATEGORYREF.child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).set(testTitle)
+    USERCATEGORYREF.child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).set(testTitle + "!*!" + testTimeLimit)
   })
 
 }
@@ -129,11 +132,14 @@ submitButton.addEventListener('click', function() {
   testQuestionType2IDArray = []
   listQuestionAndAnswer.innerHTML = ""
   headerQuizName.innerHTML = ""
+  headerTimeLimit.innerHTML = ""
 })
 
 btnSubmitQuizName.addEventListener('click', function() {
   quizName = textboxQuizName.value
+  timeLimit = textboxQuizTimeLimit.value
   headerQuizName.innerHTML = quizName
+  headerTimeLimit.innerHTML = timeLimit
 })
 
 // addQuestion.addEventListener('click', function() {
@@ -187,5 +193,5 @@ logOutButton.addEventListener('click', function () {
 
   currentUserID = ""
   localStorage.setItem("vCurrentUser", currentUserID)
-  document.location.href = "register.html"
+  document.location.href = "index.html"
 })
