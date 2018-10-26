@@ -85,7 +85,9 @@ function submitTestFunc(list, list2){
       }
     else if (checkboxAnswerFour == true) {
       answer = choiceD
-      }
+    } else {
+      answer = 'none'
+    }
 
       let answerCheck = { Answer : answer,QuestionID : uniqueQuestionNumber}
       answersToBeChecked.push(answerCheck)
@@ -98,8 +100,6 @@ function submitTestFunc(list, list2){
     })
     compareAnswers(answersToBeChecked, allAnswers)
   })
-
-
 }
 
 let count = 0
@@ -119,15 +119,15 @@ function compareAnswers(userAnswersList , databaseAnswersList){
           let correctAnswerKey = answerDictList[i].QuestionID
           let studentAnswerKey = userAnswersList[j].QuestionID
             if(answerDictList[i].Answer == userAnswersList[j].Answer){
-              count = count + 1
+              count += 1
           }
         }
       }
       }
-    score(count)
+    scoreTest(count)
   }
 
-function score(count){
+function scoreTest(count){
 
   let score = (count / questionsForThisTest.length) * 100
   console.log(score + '%')
