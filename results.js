@@ -22,7 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             childChildSnapshot.forEach(function(childChildChildSnapshot){
               key = childChildChildSnapshot.key
               value = childChildChildSnapshot.val()
-        testsList.innerHTML += `<li>Test ID: ${key} <br> <a href="#" onclick="javascript:showResults()">Test Name: ${value}</a></li>`
+        testsList.innerHTML += `<li><a href="#" onclick="javascript:showResults()">${value} ${key} </a></li>`
       })
       }
       })
