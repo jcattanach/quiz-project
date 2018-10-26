@@ -16,6 +16,11 @@
 </head>
 
 <body>
+  <div>
+ <h3>Enter the Test ID below</h3>
+ <input type='text' id="testIDName"/>
+ <button id='buttonSubmit'>submit</button>
+</div>
 
    <table>
        <tr>
@@ -33,14 +38,34 @@
   <div class="popup">
     <span class="popuptext" id="myPopup">Popup text...</span>
   </div>
-<div id="container">
 
-
+  <div id="container">
  </div>
 
 
+   <div id="testContainer">
+     <ol id='questionsListElement'>
+     </ol>
+   </div>
+
 </body>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCMvP3PJQeWNQ8Th2eTuHBdYY2Vq3xDRYU",
+        authDomain: "teacher-test-creator-app.firebaseapp.com",
+        databaseURL: "https://teacher-test-creator-app.firebaseio.com",
+        projectId: "teacher-test-creator-app",
+        storageBucket: "teacher-test-creator-app.appspot.com",
+        messagingSenderId: "496160881366"
+    };
+    firebase.initializeApp(config);
+</script>
 <script src="takeTest.js"></script>
-<script src="student.js"></script>
+<!-- <script src="student.js"></script> -->
 
 </html>

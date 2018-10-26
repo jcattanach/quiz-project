@@ -1,21 +1,31 @@
 let container = document.getElementById("container")
 let timeDisplayElement = document.querySelector('#timeDisplay');
 let header = document.createElement("div")
+let buttonSubmit = document.getElementById('buttonSubmit')
+
+
+
+
+
+buttonSubmit.addEventListener('click',function(){
+  console.log('button clicked')
+})
+
 header.className = "header"
 container.appendChild(header)
 
 let h2header = document.createElement("h2")
 header.appendChild(h2header)
-h2header.innerHTML =" Firebase Final Exam"
+h2header.innerHTML =" *#*"
 
 let list = document.createElement("ul")
 list.className = "quizDetails"
 header.appendChild(list)
 
 
-let questions = document.createElement("li")
-list.appendChild(questions)
-questions.innerHTML = "Questions: *#* "
+let numOfQuestion = document.createElement("li")
+list.appendChild(numOfQuestion)
+numOfQuestion.innerHTML = `Question: *#*`
 
 
 let timeLimit = document.createElement("li")
@@ -42,6 +52,7 @@ startExam.innerHTML = "Start Exam"
 
 startExam.addEventListener("click",function(){
 
+startExamOnTakeTestJs()
 startTime()
 })
 
