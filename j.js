@@ -63,11 +63,7 @@ starttime()
 
 
  function starttime() {
-<<<<<<< HEAD
-    var fiveMinutes = 30
-=======
     var fiveMinutes = 122
->>>>>>> master
       //showtime();
       var showcurtime = moment();
       var curtimeformat = showcurtime.format('h:mm:ss a');
