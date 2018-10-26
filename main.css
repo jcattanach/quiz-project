@@ -1,3 +1,6 @@
+h1{
+   text-shadow: 3px 3px black;
+}
 li{
 list-style:none;
 }
@@ -21,6 +24,9 @@ a:hover{
 a:active{
   text-decoration: none;
    color: #eae6de
+}
+#regLogin button{
+  width: 120px;
 }
 button{
     background-color: #eae6de;
