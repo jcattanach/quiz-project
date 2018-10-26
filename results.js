@@ -33,31 +33,28 @@ firebase.auth().onAuthStateChanged(function(user) {
 }
 })
 
-function showresults(){
+function showResults(){
   firebase.auth().onAuthStateChanged(function(user) {
    if (user) {
-     viewTestsBtn.addEventListener('click', function () {
     usersRef.on('value',function(snapshot){
-        testsList.innerHTML = ''
+        resultsList.innerHTML = ''
         snapshot.forEach(function(childSnapshot){
           if (childSnapshot.key == currentUserID){
           childSnapshot.forEach(function(childChildSnapshot){
-            if (childChildSnapshot.key == "Students"){
+            if (childSnapshot.val().AccountType == "Teacher" ){
               childChildSnapshot.forEach(function(childChildChildSnapshot){
+                console.log(childSnapshot.val().Students)
                 key = childChildChildSnapshot.key
-                value = childChildChildSnapshot.val()
-          resultsList.innerHTML += `<li><a href="#" onclick="javascript:showResults()">${firstName} ${lastName} ${grade}</a></li>`
+                score = childChildChildSnapshot.val()
+         resultsList.innerHTML += `<li>${score}</li>`
         })
         }
         })
       }
         })
-      })
     })
   }
   })
-
-
 }
 
 
