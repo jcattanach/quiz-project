@@ -75,6 +75,18 @@ font-size: 20px;
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  html{
+    width: 100%;
+  }
+
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    html{
+    width: 100%;
+
 body {
   background-color: #1e3869;
 }
@@ -84,4 +96,5 @@ h3 {
 #box {
   background-color: white;
   color: black;
+
 }
