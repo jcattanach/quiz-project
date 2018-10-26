@@ -21,7 +21,7 @@ let backButton = document.getElementById('backButton')
 let submitButton = document.getElementById('submitButton')
 
 let logOutButton = document.getElementById("logOutButton")
-let number
+let testInfo = document.getElementById('testInfo')
 //testQuestionType1IDArray = []
 testQuestionType2IDArray = []
 
@@ -86,6 +86,7 @@ function saveTestToDatabase(){
 
 function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef, testTimeLimit) {
 
+
   console.log(uniqueTestIDRef.path.pieces_[1])
   testQuestionType2IDArray.map(function (unqiueQuestionNumber) {
     let questionText = document.getElementById("multipleChoiceQuestion" + unqiueQuestionNumber).value
@@ -128,6 +129,8 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef, testTimeLimit) 
     QUESTREF.child(unqiueQuestionNumber).set(questionMultipleChoiceObject)
     ANSWERREF.child(unqiueQuestionNumber).set(answerMultipleChoiceObject)
     USERCATEGORYREF.child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).set(testTitle + "!*!" + testTimeLimit)
+
+    testInfo.innerHTML = `<p>The test ID is <u>${uniqueTestIDRef.path.pieces_[1]}</u><br> Your teacher ID is <u>${currentUserID}</u><br>The student will need to input these codes to take the test.</p>`
   })
 
 }
