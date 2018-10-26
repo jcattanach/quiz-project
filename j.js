@@ -109,9 +109,6 @@ starttime()
           localStorage.setItem("vCurrentUser", currentUserID)
           //document.location.href = "register.html"
         }
-    }, 1000);
+    }
+    , 1000);
 }
-
-  setInterval(function() {
-      alert("Message to alert every 5 seconds");
-  }, 5000);
