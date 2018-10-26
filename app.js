@@ -31,7 +31,6 @@ function deleteQuestionFunction(listItem) {
     let numberToRemove = listItem.id
     console.log(numberToRemove)
     for (let index = 0; index < testQuestionType2IDArray.length; index++) {
-      console.log(testQuestionIDArray[index])
       console.log(numberToRemove)
       if (testQuestionType2IDArray[index] == numberToRemove) {
         console.log("same Number")
@@ -81,8 +80,6 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef, testTimeLimit) 
 
   console.log(uniqueTestIDRef.path.pieces_[1])
   testQuestionType2IDArray.map(function (unqiueQuestionNumber) {
-    console.log(unqiueQuestionNumber)
-    console.log(document.getElementById(unqiueQuestionNumber).childNodes)
     let questionText = document.getElementById("multipleChoiceQuestion" + unqiueQuestionNumber).value
     let choiceA = document.getElementById("multipleChoiceAnswerOne" + unqiueQuestionNumber).value
     let choiceB = document.getElementById("multipleChoiceAnswerTwo" + unqiueQuestionNumber).value
