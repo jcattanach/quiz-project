@@ -8,19 +8,19 @@ body{
 }
 a{
   text-decoration: none;
-   color: #ffff1e;
-}
-a:hover{
-  text-decoration: none;
-   color: #ffff1e;
-}
-a:active{
-  text-decoration: none;
-   color: #ffff1e;
+   color: #eae6de
 }
 a:visited{
   text-decoration: none;
-   color: #ffff1e;
+   color: #eae6de
+ }
+a:hover{
+  text-decoration: none;
+   color: yellow;
+}
+a:active{
+  text-decoration: none;
+   color: #eae6de
 }
 button{
     background-color: #eae6de;
@@ -35,8 +35,8 @@ button{
     transition-duration: 0.01s;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
-button:hover, button:focus, button:active{
+button:hover{
   color: white;
   background-color: #38380c;
-  /* background-color: #4b4f17; */
 }
+button:focus{outline:0;}
