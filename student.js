@@ -1,37 +1,36 @@
 let container = document.getElementById("container")
 let timeDisplayElement = document.querySelector('#timeDisplay');
 let header = document.createElement("div")
+let buttonSubmit = document.getElementById('buttonSubmit')
+
+
+
+
+
+buttonSubmit.addEventListener('click',function(){
+  console.log('button clicked')
+})
+
 header.className = "header"
 container.appendChild(header)
 
 let h2header = document.createElement("h2")
 header.appendChild(h2header)
-h2header.innerHTML =" Firebase Final Exam"
+h2header.innerHTML =" *#*"
 
 let list = document.createElement("ul")
 list.className = "quizDetails"
 header.appendChild(list)
 
-let examDueDate = document.createElement("li")
-list.appendChild(examDueDate)
-examDueDate.innerHTML = " Due: OCT 29, 2018 at 04:00pm"
 
-let questions = document.createElement("li")
-list.appendChild(questions)
-questions.innerHTML = "Questions: 10 "
-
-let available = document.createElement("li")
-list.appendChild(available)
-available.innerHTML = " Available : OCT 22, 2018 at 9am - OCT 29, 2018 at 04:00 pm 7 days"
-
-let points = document.createElement("li")
-list.appendChild(points)
-points.innerHTML = "Points: 50 "
+let numOfQuestion = document.createElement("li")
+list.appendChild(numOfQuestion)
+numOfQuestion.innerHTML = `Question: *#*`
 
 
 let timeLimit = document.createElement("li")
 list.appendChild(timeLimit)
-timeLimit.innerHTML = "Time Limit : 90 Minutes "
+timeLimit.innerHTML = "Time Limit : *#* Minutes "
 
 let instructions = document.createElement("div")
 container.appendChild(instructions)
@@ -53,7 +52,8 @@ startExam.innerHTML = "Start Exam"
 
 startExam.addEventListener("click",function(){
 
-starttime()
+startExamOnTakeTestJs()
+startTime()
 })
 
  var date = new Date()
@@ -62,7 +62,7 @@ starttime()
  var month = date.getMonth()
 
 
- function starttime() {
+ function startTime() {
     var fiveMinutes = 122
       //showtime();
       var showcurtime = moment();
