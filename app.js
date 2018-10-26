@@ -7,19 +7,16 @@ const USERCATEGORYREF = DATABASE.ref("Users")
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
-//console.log(currentUserID)
-//variable element names
+
 let textboxQuizName = document.getElementById('textboxQuizName')
 let btnSubmitQuizName = document.getElementById('btnSubmitQuizName')
 let headerQuizName = document.getElementById('headerQuizName')
-//let listQuestionAndAnswer = document.getElementById('listQuestionAndAnswer')
 let addMultipleChoiceQuestion = document.getElementById('addMultipleChoiceQuestion')
 
 let submitButton = document.getElementById('submitButton')
 
 let logOutButton = document.getElementById("logOutButton")
 let number
-//testQuestionType1IDArray = []
 testQuestionType2IDArray = []
 
 function deleteQuestionFunction(listItem) {
@@ -27,12 +24,8 @@ function deleteQuestionFunction(listItem) {
   whichList.removeChild(listItem)
 
     let numberToRemove = listItem.id
-    console.log(numberToRemove)
     for (let index = 0; index < testQuestionType2IDArray.length; index++) {
-      console.log(testQuestionIDArray[index])
-      console.log(numberToRemove)
       if (testQuestionType2IDArray[index] == numberToRemove) {
-        console.log("same Number")
       testQuestionType2IDArray.splice(index, 1)
   }
 }
@@ -45,34 +38,9 @@ function saveTestToDatabase(){
   let testTitle = headerQuizName.innerHTML
   let uniqueTestIDRef = TESTREF.push()
   console.log(uniqueTestIDRef)
-  //saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef)
   saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef)
 
 }
-
-// function saveQuestionType1ToDatabase(testTitle, uniqueTestIDRef){
-
-
-//   console.log(uniqueTestIDRef.path.pieces_[1])
-//   testQuestionType1IDArray.map(function () {
-//     console.log(unqiueQuestionNumber)
-//     let questionText = document.getElementById(unqiueQuestionNumber).childNodes[1].value
-//     let mainAnswer = document.getElementById(unqiueQuestionNumber).childNodes[4].value
-//     let altAnswer1 = document.getElementById(unqiueQuestionNumber).childNodes[6].value
-//     let altAnswer2 = document.getElementById(unqiueQuestionNumber).childNodes[8].value
-//     let altAnswer3 = document.getElementById(unqiueQuestionNumber).childNodes[10].value
-//     console.log(questionText, mainAnswer, altAnswer1, altAnswer2, altAnswer3)
-//     questionObject = { "question" : questionText,
-//                         "Answer" : mainAnswer,
-//                       "AltAnswerOne" : altAnswer1,
-//                       "AltAnswerTwo": altAnswer2,
-//                       "AltAnswerThree": altAnswer3}
-
-//     uniqueTestIDRef.child(testTitle).child("Questions").child("Question Type 1").child(unqiueQuestionNumber).set(questionObject)
-//     USERCATEGORIESREF.child("Teachers").child(currentUserID).child("Tests").child(uniqueTestIDRef.path.pieces_[1]).child(testTitle).child("Questions").child("Question Type 1").child(unqiueQuestionNumber).set(questionObject)
-//   })
-
-// }
 
 function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
 
@@ -105,7 +73,6 @@ function saveQuestionType2ToDatabase(testTitle, uniqueTestIDRef) {
       }
 
 
-    console.log(questionText, choiceA, choiceB, choiceC, choiceD)
     questionMultipleChoiceObject = {
       "ChoiceA": choiceA,
       "ChoiceB": choiceB,
@@ -136,27 +103,6 @@ btnSubmitQuizName.addEventListener('click', function() {
   headerQuizName.innerHTML = quizName
 })
 
-// addQuestion.addEventListener('click', function() {
-
-//   let number = Math.floor(Math.random() * 100000000000000000000)
-
-
-//   enterQuestionAndAnswer = `
-// <li class="questionType1LI" id="${number}">
-//   <input type="text" id="quizQuestion" placeholder="Question"/><br>
-//   <input type="text" id="quizAnswer" placeholder="Answer" required/>
-//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-//   <input type="text" id="quizAlternativeAnswer" placeholder="Alternative answer (optional)" />
-//   <button id="deleteQuestion" onclick="deleteQuestionFunction(this.parentElement)">remove question</button>
-// </li>`
-
-//   testQuestionType1IDArray.push(number)
-
-//   listQuestionAndAnswer.insertAdjacentHTML('beforeend', enterQuestionAndAnswer)
-
-
-// })
 
 addMultipleChoiceQuestion.addEventListener('click', function() {
 
