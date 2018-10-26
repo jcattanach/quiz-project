@@ -10,66 +10,39 @@ const usersRef =  database.ref("Users")
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
 
-firebase.auth().signInWithEmailAndPassword(email, password)
-  .then(function (user) {
-    userID = user.user.uid
-    localStorage.setItem("vCurrentUser", userID)
-    appDirector(userID)
-  })
-
-viewTestsBtn.addEventListener('click',function(userID){
-      showtests(userID)
-    })
-
-
-function showtests(userID){
+firebase.auth().onAuthStateChanged(function(user) {
+ if (user) {
+   viewTestsBtn.addEventListener('click', function () {
   usersRef.on('value',function(snapshot){
       testsList.innerHTML = ''
       snapshot.forEach(function(childSnapshot){
+        if (childSnapshot.key == currentUserID){
         childSnapshot.forEach(function(childChildSnapshot){
           if (childChildSnapshot.key == "Tests"){
             childChildSnapshot.forEach(function(childChildChildSnapshot){
               key = childChildChildSnapshot.key
               value = childChildChildSnapshot.val()
-        testsList.innerHTML += `<li>Test ID: ${key} <br> Test Name: ${value}</li>`
+        testsList.innerHTML += `<li>Test ID: ${key} <br> <a href="#" onclick="javascript:showResults()">Test Name: ${value}</a></li>`
       })
       }
       })
+    }
       })
     })
-
+  })
 }
+})
 
-// testName = testsRef
-// let testItem =
-// <li><label>${testName}</label>
-//     <table>
-//   <tr>
-//     <th>Name</th>
-//     <th>Score</th>
-//   </tr>
-//   <tr>
-//     <td>John Doe</td>
-//     <td>82%</td>
-//   </tr>
-//   <tr>
-//     <td>Mary Doe</td>
-//     <td>95%</td>
-//   </tr>
-// </table>
-// </li>
-// `
-// resultsList.insertAdjacentHTML("beforeend", testItem)
-// })
-
-// function displayOrders() {
+// function showresults(){
 //
-//   testsRef.on('value',function(snapshot){
-//       resultsList.innerHTML = ''
-//       snapshot.forEach(function(childSnapshot){
-//         resultsList.innerHTML = childSnapshot.val()
-//
-//       })
-//     //  tests.forEach(test => resultsList.innerHTML += `<li>${test.name} - ${test.score}</li>`)
-//     })
+//     resultsList.innerHTML +=
 // }
+
+
+let logOutButton = document.getElementById("logOutButton")
+
+logOutButton.addEventListener('click', function () {
+currentUserID = ""
+  localStorage.setItem("vCurrentUser", currentUserID)
+  document.location.href = "register.html"
+})
