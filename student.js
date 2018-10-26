@@ -12,26 +12,15 @@ let list = document.createElement("ul")
 list.className = "quizDetails"
 header.appendChild(list)
 
-let examDueDate = document.createElement("li")
-list.appendChild(examDueDate)
-examDueDate.innerHTML = " Due: OCT 29, 2018 at 04:00pm"
 
 let questions = document.createElement("li")
 list.appendChild(questions)
-questions.innerHTML = "Questions: 10 "
-
-let available = document.createElement("li")
-list.appendChild(available)
-available.innerHTML = " Available : OCT 22, 2018 at 9am - OCT 29, 2018 at 04:00 pm 7 days"
-
-let points = document.createElement("li")
-list.appendChild(points)
-points.innerHTML = "Points: 50 "
+questions.innerHTML = "Questions: *#* "
 
 
 let timeLimit = document.createElement("li")
 list.appendChild(timeLimit)
-timeLimit.innerHTML = "Time Limit : 90 Minutes "
+timeLimit.innerHTML = "Time Limit : *#* Minutes "
 
 let instructions = document.createElement("div")
 container.appendChild(instructions)
@@ -53,7 +42,7 @@ startExam.innerHTML = "Start Exam"
 
 startExam.addEventListener("click",function(){
 
-starttime()
+startTime()
 })
 
  var date = new Date()
@@ -62,7 +51,7 @@ starttime()
  var month = date.getMonth()
 
 
- function starttime() {
+ function startTime() {
     var fiveMinutes = 122
       //showtime();
       var showcurtime = moment();
