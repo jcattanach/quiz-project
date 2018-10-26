@@ -1,10 +1,13 @@
 let createBtn = document.getElementById("createBtn")
 let viewResultsBtn = document.getElementById("viewResultsBtn")
+let teacherCode = document.getElementById('teacherCode')
 
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
 console.log(currentUserID)
 
+teacherCode.innerHTML = `<h1>Teacher Home</h1>
+<p>Your teacher code is <u>${currentUserID}<u> </p>`
 
 createBtn.addEventListener('click',function(userID){
       testCreatorApp()
