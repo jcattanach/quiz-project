@@ -30,7 +30,7 @@ function checkID(list, testID){
       questionsForThisTestKey.push(questionKey)
       liItems = `<li>
     <h4>${question.val().question}<br>A.
-    <input class='checkboxAnswerOne' id=('checkboxAnswerOne${question.key}' type="checkbox"/>
+    <input class='checkboxAnswerOne' id='checkboxAnswerOne${question.key}' type="checkbox"/>
     <label class='labelAnswerOne' id='labelAnswerOne${question.key}' >${question.val().ChoiceA}</label><br>B.
     <input class='checkboxAnswerTwo' id='checkboxAnswerTwo${question.key}' type="checkbox"/>
     <label class='labelAnswerTwo' id='labelAnswerTwo${question.key}' >${question.val().ChoiceB}</label><br>C.
@@ -69,10 +69,10 @@ function submitTestFunc(list, list2){
     let choiceC = document.getElementById("labelAnswerThree" + uniqueQuestionNumber).innerHTML
     let choiceD = document.getElementById("labelAnswerFour" + uniqueQuestionNumber).innerHTML
 
-    let checkboxAnswerOne = document.querySelector(".checkboxAnswerOne").checked
-    let checkboxAnswerTwo = document.querySelector(".checkboxAnswerTwo").checked
-    let checkboxAnswerThree = document.querySelector(".checkboxAnswerThree").checked
-    let checkboxAnswerFour = document.querySelector(".checkboxAnswerFour").checked
+    let checkboxAnswerOne = document.getElementById("checkboxAnswerOne" + uniqueQuestionNumber).checked
+    let checkboxAnswerTwo = document.getElementById("checkboxAnswerTwo" + uniqueQuestionNumber).checked
+    let checkboxAnswerThree = document.getElementById("checkboxAnswerThree" + uniqueQuestionNumber).checked
+    let checkboxAnswerFour = document.getElementById("checkboxAnswerFour" + uniqueQuestionNumber).checked
     let answer
     if (checkboxAnswerOne == true){
       answer = choiceA
@@ -85,7 +85,9 @@ function submitTestFunc(list, list2){
       }
     else if (checkboxAnswerFour == true) {
       answer = choiceD
-      }
+    } else {
+      answer = 'none'
+    }
 
       let answerCheck = { Answer : answer,QuestionID : uniqueQuestionNumber}
       answersToBeChecked.push(answerCheck)
@@ -98,10 +100,9 @@ function submitTestFunc(list, list2){
     })
     compareAnswers(answersToBeChecked, allAnswers)
   })
-
-
 }
 
+let count = 0
 
 function compareAnswers(userAnswersList , databaseAnswersList){
     databaseAnswersList.map(function(answer){
@@ -110,19 +111,24 @@ function compareAnswers(userAnswersList , databaseAnswersList){
       let answerDict = { Answer : answerAnswer ,QuestionID : answerKey}
       answerDictList.push(answerDict)
     })
-    let count = 0
     for(let i=0;i<answerDictList.length;i++){
       for(let j=0;j<userAnswersList.length;j++){
         if(answerDictList[i].QuestionID == userAnswersList[j].QuestionID){
-          // let correctAnswer = answerDictList[i].Answer
-          // let studentAnswer = userAnswersList[j].Answer
-          // let correctAnswerKey = answerDictList[i].QuestionID
-          // let studentAnswerKey = userAnswersList[j].QuestionID
+          let correctAnswer = answerDictList[i].Answer
+          let studentAnswer = userAnswersList[j].Answer
+          let correctAnswerKey = answerDictList[i].QuestionID
+          let studentAnswerKey = userAnswersList[j].QuestionID
             if(answerDictList[i].Answer == userAnswersList[j].Answer){
-              console.log('true')          
+              count += 1
           }
         }
       }
       }
-
+    scoreTest(count)
   }
+
+function scoreTest(count){
+
+  let score = (count / questionsForThisTest.length) * 100
+  console.log(score + '%')
+}
