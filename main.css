@@ -1,0 +1,40 @@
+li{
+list-style:none;
+}
+body{
+  background-color: #1e3869;
+  color: #eae6de;
+  font-family: 'Chakra Petch', sans-serif;
+}
+a{
+  text-decoration: none;
+   color: #ffff1e;
+}
+a:hover{
+  text-decoration: none;
+   color: #ffff1e;
+}
+a:active{
+  text-decoration: none;
+   color: #ffff1e;
+}
+a:visited{
+  text-decoration: none;
+   color: #ffff1e;
+}
+button{
+    background-color: #eae6de;
+    border: none;
+    color: black;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 4px;
+    transition-duration: 0.01s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+button:hover, button:focus, button:active{
+  color: #565636;
+}

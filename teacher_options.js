@@ -22,12 +22,7 @@ function viewResults(){
           document.location.href = "results.html"
 }
 
-
-
 let logOutButton = document.getElementById("logOutButton")
-
-
-
 
 logOutButton.addEventListener('click', function () {
 currentUserID = ""
