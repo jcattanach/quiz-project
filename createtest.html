@@ -12,11 +12,15 @@
   <button id="logOutButton">Log Out</button>
   <h1>Create a test or quiz</h1>
   <input type="text" id="textboxQuizName" placeholder="Name of Quiz"/>
+  <input type="text" id="textboxQuizTimeLimit" placeholder="Time Limit (minutes)" />
   <button id="btnSubmitQuizName">Add</button>
   <fieldset>
     <legend>Questions and answers</legend>
     <div id="quizForm">
-      <h3 id = headerQuizName></h3>
+      <div id = "quizInformation">
+        <label id="testName">Test Name: <h3 id = "headerQuizName"></h3></label>
+        <label id="testTimeLimit">Time Limit: <h3 id = "headerTimeLimit" ></h3> minutes</label>
+      </div>
       <ol id="listQuestionAndAnswer">
       </ol>
     </div>
