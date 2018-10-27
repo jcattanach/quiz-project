@@ -45,6 +45,7 @@ function showResults(){
                childChildSnapshot.forEach(function(childChildChildSnapshot){
                  console.log(childSnapshot.val().Students)
                  const yourStudents = childSnapshot.val().Students
+                 //SCOTT
                  Object.keys(yourStudents).forEach(studentKey => {
                        studentObj = yourStudents[studentKey]
                        Object.keys(studentObj.Tests).forEach(studentTestId => {
