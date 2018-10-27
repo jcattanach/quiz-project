@@ -27,14 +27,11 @@ var testID
 var testName
 var testTime
 
-
-
-
 buttonSubmit.addEventListener('click',function(){
   teacherID = teacherIdTextbox.value
   questionsListElement.innerHTML = ''
   testID = testIDName.value
-  
+
   usersRef.on('value', function (snapshot) {
     let users = []
     snapshot.forEach(function (childSnapshot) {
@@ -114,7 +111,7 @@ questRef.on('value', function(snapshot) {
     questions.push(childSnapshot)
 
   })
-  
+
 
 
 
@@ -123,7 +120,7 @@ questRef.on('value', function(snapshot) {
   checkID(questions, testID)
 
 })
- 
+
 }
 
 function submitTestFunc(list, list2){
@@ -197,7 +194,7 @@ function scoreTest(count, teacherID, testID, currentUserID){
   console.log(teacherID)
   console.log(testID)
   console.log(currentUserID)
-  let score = ((count / questionsForThisTest.length) * 100) + '%' 
+  let score = ((count / questionsForThisTest.length) * 100) + '%'
   usersRef.child(teacherID).child("Students").child(currentUserID).child("Tests").child(testID).set(score)
   console.log(score + '%')
 }
@@ -261,7 +258,7 @@ startTime(testTime)
 
 
  function startTime(testTime) {
-  console.log(testTime)  
+  console.log(testTime)
   var fiveMinutes = (parseInt(testTime, 10) * 60)
       //showtime();
       var showcurtime = moment();
@@ -316,4 +313,3 @@ currentUserID = ""
   localStorage.setItem("vCurrentUser", currentUserID)
   document.location.href = "index.html"
 })
-

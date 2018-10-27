@@ -7,16 +7,16 @@
     width: 90%;
     font-size: 1.1em;
     margin: 0 0 1em;
-    background-color: #c5fcdb;
+    background-color: white;
     display:flex;
     justify-content: space-between;
+    color: black;
 }
 
 
 #startbtn{
 
-color: white;
-background-color: black;
+
 margin-left: 35%;
 margin-top: 30px;
 width:20%;
@@ -107,3 +107,8 @@ h3 {
 #box {
   background-color: white;
   color: black;
+}
+#questionsListElement {
+  background-color: white;
+  opacity: .8;
+}
