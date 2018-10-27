@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Take Test</title>
-    <link rel="stylesheet" type="text/css" href='main.css'/>
     <link rel="stylesheet" type="text/css" href="student.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 480px)" href="mobile.css" />
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 481px)" href="desktop.css" /> -->
     <script src="moment.min.js"></script>
     <script>
         moment().format();
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
@@ -23,7 +24,7 @@
  <input type='text' id="teacherIdTextbox" placeholder="Enter Teacher ID"/>
  <button id='buttonSubmit'>submit</button>
 </div>
-<div id='box'>
+
    <table>
        <tr>
          <td id="timeDisplay"></td>
@@ -50,10 +51,6 @@
      </ol>
    </div>
 
-
-
- </div>
-</div>
 </body>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase-auth.js"></script>
@@ -71,6 +68,7 @@
     };
     firebase.initializeApp(config);
 </script>
+
 <script src="takeTest.js"></script>
 <!-- <script src="student.js"></script> -->
 

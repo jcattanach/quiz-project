@@ -5,6 +5,7 @@ console.log(currentUserID)
 const database = firebase.database()
 const questRef = database.ref('Questions')
 const answerRef = database.ref('Answers')
+const usersRef = database.ref('Users')
 
 let testIDName = document.getElementById('testIDName')
 let questionsListElement = document.getElementById('questionsListElement')
@@ -21,14 +22,56 @@ let questionNumberArray = []
 let answersToBeChecked = []
 let allAnswers = []
 let answerDictList = []
+var teacherID
+var testID
+var testName
+var testTime
 
 buttonSubmit.addEventListener('click',function(){
-  let teacherID = teacherIdTextbox.value
+  teacherID = teacherIdTextbox.value
   questionsListElement.innerHTML = ''
-  let testID = testIDName.value
+  testID = testIDName.value
+
+  usersRef.on('value', function (snapshot) {
+    let users = []
+    snapshot.forEach(function (childSnapshot) {
+      users.push(childSnapshot.val())
+    })
+    users.map(function (singleUSER) {
+
+
+      if (singleUSER.UserID == teacherID) {
+
+        let testInfo = singleUSER.Tests[testID]
+        testInfoArray = testInfo.split("!*!")
+        testName = testInfoArray[0]
+        testTime = testInfoArray[1]
+
+      }
+    })
+
+
+
+    // console.log(tests)
+    // tests.forEach(function(test){
+    //   console.log(test)
+    // })
+    // let tests = []
+    // tests.push(singleUSER.Tests)
+    // console.log(tests)
+    // tests.map(function(test){
+    //   console.log(test)
+    //   if (test = testID) {
+    //     //console.log(test)
+    //   }
+    // })
+
+  })
+
   pullData(testID)
 
 })
+
 function checkID(list, testID){
   list.map(function(question){
     if(question.val().testID == testID){
@@ -58,7 +101,7 @@ startExam.addEventListener('click',function(){
     addQuestions()
   })
   }})
-  populateHeader(questionsForThisTest)
+  populateHeader(questionsForThisTest, testName, testTime)
   questionsListElement.insertAdjacentHTML('beforeend', submitButton)
 }
 function pullData(testID) {
@@ -68,9 +111,16 @@ questRef.on('value', function(snapshot) {
     questions.push(childSnapshot)
 
   })
+
+
+
+
+
+
   checkID(questions, testID)
 
 })
+
 }
 
 function submitTestFunc(list, list2){
@@ -136,12 +186,16 @@ function compareAnswers(userAnswersList , databaseAnswersList){
         }
       }
       }
-    scoreTest(count)
+    scoreTest(count, teacherID, testID,currentUserID)
   }
 
-function scoreTest(count){
-
-  let score = (count / questionsForThisTest.length) * 100
+function scoreTest(count, teacherID, testID, currentUserID){
+  console.log(count)
+  console.log(teacherID)
+  console.log(testID)
+  console.log(currentUserID)
+  let score = ((count / questionsForThisTest.length) * 100) + '%'
+  usersRef.child(teacherID).child("Students").child(currentUserID).child("Tests").child(testID).set(score)
   console.log(score + '%')
 }
 
@@ -152,13 +206,13 @@ let header = document.createElement("div")
 
 
 
-function populateHeader(questionsForThisTest){
+function populateHeader(questionsForThisTest, testName, testTime){
 header.className = "header"
 container.appendChild(header)
 
 let h2header = document.createElement("h2")
 header.appendChild(h2header)
-h2header.innerHTML =" *#*"
+h2header.innerHTML = `Test : ${testName}`
 
 let list = document.createElement("ul")
 list.className = "quizDetails"
@@ -171,7 +225,7 @@ numOfQuestion.innerHTML = `Question: ${questionsForThisTest.length}`
 
 let timeLimit = document.createElement("li")
 list.appendChild(timeLimit)
-timeLimit.innerHTML = "Time Limit : *#* Minutes "
+timeLimit.innerHTML = `Time Limit : ${testTime} Minutes`
 
 let instructions = document.createElement("div")
 container.appendChild(instructions)
@@ -194,7 +248,7 @@ startExam.innerHTML = "Start Exam"
 startExam.addEventListener("click",function(){
 
 
-startTime()
+startTime(testTime)
 })
 
  var date = new Date()
@@ -203,8 +257,9 @@ startTime()
  var month = date.getMonth()
 
 
- function startTime() {
-    var fiveMinutes = 122
+ function startTime(testTime) {
+  console.log(testTime)
+  var fiveMinutes = (parseInt(testTime, 10) * 60)
       //showtime();
       var showcurtime = moment();
       var curtimeformat = showcurtime.format('h:mm:ss a');
