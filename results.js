@@ -10,6 +10,7 @@ const usersRef =  database.ref("Users")
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
 
+console.log(currentUserID)
 firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
   viewTestsBtn.addEventListener('click', function () {
@@ -34,6 +35,7 @@ if (user) {
 })
 
 function showResults(){
+
   firebase.auth().onAuthStateChanged(function(user) {
    if (user) {
     usersRef.on('value',function(snapshot){
@@ -66,6 +68,7 @@ function showResults(){
   }
 })
 }
+
 
 let logOutButton = document.getElementById("logOutButton")
 
