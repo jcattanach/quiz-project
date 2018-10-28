@@ -35,6 +35,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 })
 
 function showResults(){
+<<<<<<< HEAD
   firebase.auth().onAuthStateChanged(function(user) {
    if (user) {
     usersRef.on('value',function(snapshot){
@@ -58,7 +59,38 @@ function showResults(){
   })
   }
 })
-
+=======
+   firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+     usersRef.on('value',function(snapshot){
+         resultsList.innerHTML = ''
+         snapshot.forEach(function(childSnapshot){
+           if (childSnapshot.key == currentUserID){
+           childSnapshot.forEach(function(childChildSnapshot){
+             if (childSnapshot.val().AccountType == "Teacher" ){
+               childChildSnapshot.forEach(function(childChildChildSnapshot){
+                 console.log(childSnapshot.val().Students)
+                 const yourStudents = childSnapshot.val().Students
+                 Object.keys(yourStudents).forEach(studentKey => {
+                       studentObj = yourStudents[studentKey]
+                       Object.keys(studentObj.Tests).forEach(studentTestId => {
+                           const studentTestScore = studentObj.Tests[studentTestId]
+                           resultsList.innerHTML += `<li>Test ID:${studentTestId} Score: ${studentTestScore}</li>`
+                       })
+                   })
+                   
+                 key = childChildChildSnapshot.key
+                 score = childChildChildSnapshot.val()
+             })
+            }
+          })
+         }
+       })
+     })
+   }
+ })
+}
+>>>>>>> 1be181e27d45d0250615782d42f088c727787967
 
 let logOutButton = document.getElementById("logOutButton")
 
