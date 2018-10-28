@@ -52,6 +52,7 @@ function showResults(){
                            resultsList.innerHTML += `<li>Test ID:${studentTestId} Score: ${studentTestScore}</li>`
                        })
                    })
+                   
                  key = childChildChildSnapshot.key
                  score = childChildChildSnapshot.val()
              })
