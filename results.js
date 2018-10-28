@@ -10,6 +10,7 @@ const usersRef =  database.ref("Users")
 let currentJSUser = localStorage.getItem("vCurrentUser")
 let currentUserID = currentJSUser
 
+console.log(currentUserID)
 firebase.auth().onAuthStateChanged(function(user) {
  if (user) {
    viewTestsBtn.addEventListener('click', function () {
@@ -42,20 +43,21 @@ function showResults(){
           if (childSnapshot.key == currentUserID){
           childSnapshot.forEach(function(childChildSnapshot){
             if (childSnapshot.val().AccountType == "Teacher" ){
-              childChildSnapshot.forEach(function(childChildChildSnapshot){
+              childSnapshot.forEach(function(childChildSnapshot){
                 console.log(childSnapshot.val().Students)
-                key = childChildChildSnapshot.key
-                score = childChildChildSnapshot.val()
-         resultsList.innerHTML += `<li>${score}</li>`
-        })
+               scoresRef.forEach(function(childChildChildSnapshot){
+               key = childChildChildSnapshot.val()
+               score = childChildSnapshot.val()
+        resultsList.innerHTML += `<li>${key}</li>`
+       })
+     })
         }
-        })
-      }
-        })
+      })
+        }
     })
-  }
   })
-}
+  }
+})
 
 
 let logOutButton = document.getElementById("logOutButton")
