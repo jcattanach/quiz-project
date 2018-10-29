@@ -31,7 +31,6 @@ buttonSubmit.addEventListener('click',function(){
   teacherID = teacherIdTextbox.value
   questionsListElement.innerHTML = ''
   testID = testIDName.value
-
   usersRef.on('value', function (snapshot) {
     let users = []
     snapshot.forEach(function (childSnapshot) {
@@ -162,6 +161,7 @@ function submitTestFunc(list, list2){
     })
     compareAnswers(answersToBeChecked, allAnswers)
   })
+  testContainer.innerHTML=`<p>Thank you for taking the Test!</p>`
 }
 
 let count = 0

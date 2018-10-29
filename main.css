@@ -46,6 +46,12 @@ button:hover{
   background-color: #38380c;
 }
 button:focus{outline:0;}
+
+.multipleChoiceQuestion{margin-bottom:3px;}
+.multipleChoiceAnswerOne{margin-bottom:3px;}
+.multipleChoiceAnswerTwo{margin-bottom:3px;}
+/* .multipleChoiceAnswerThree{margin-bottom:3px;} */
+.multipleChoiceAnswerFour{margin-bottom:3px;}
 @media (min-width: 768px) and (max-width: 1024px) {
   html{
     width: 100%;
