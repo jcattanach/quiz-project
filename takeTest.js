@@ -73,15 +73,15 @@ buttonSubmit.addEventListener('click',function(){
 })
 
 function checkID(list, testID){
-  let questionNumber = 0
+  let questionNumber = 1
   list.map(function(question){
     if(question.val().testID == testID){
       questionsForThisTest.push(question.val())
       let questionKey = question.key
-      questionNumber += 1
+      
       questionsForThisTestKey.push(questionKey)
       function addQuestions(){
-     var liItems = `<li>
+        var liItems = `<li>
     <h4>${questionNumber}.    ${question.val().question}<br>A.
     <input class='checkboxAnswerOne' id='checkboxAnswerOne${question.key}' type="checkbox"/>
     <label class='labelAnswerOne' id='labelAnswerOne${question.key}' >${question.val().ChoiceA}</label><br>B.
@@ -92,15 +92,17 @@ function checkID(list, testID){
     <input class='checkboxAnswerFour' id='checkboxAnswerFour${question.key}' type="checkbox"/>
     <label class='labelAnswerFour' id='labelAnswerFour${question.key}' >${question.val().ChoiceD}</label>
     </li>`
-
+    questionNumber += 1
     //console.log("checkboxAnswerTwo" + question.key)
     questionNumberArray.push(question.key)
     //console.log(questionNumberArray)
 
 
     questionsListElement.insertAdjacentHTML('beforeend', liItems)}
-startExam.addEventListener('click',function(){
+
+    startExam.addEventListener('click',function(){
     addQuestions()
+  
   })
   }})
   populateHeader(questionsForThisTest, testName, testTime)
