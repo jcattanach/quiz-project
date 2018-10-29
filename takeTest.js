@@ -26,6 +26,7 @@ var teacherID
 var testID
 var testName
 var testTime
+var score
 
 buttonSubmit.addEventListener('click',function(){
   teacherID = teacherIdTextbox.value
@@ -72,14 +73,16 @@ buttonSubmit.addEventListener('click',function(){
 })
 
 function checkID(list, testID){
+  let questionNumber = 0
   list.map(function(question){
     if(question.val().testID == testID){
       questionsForThisTest.push(question.val())
       let questionKey = question.key
+      questionNumber += 1
       questionsForThisTestKey.push(questionKey)
       function addQuestions(){
      var liItems = `<li>
-    <h4>${question.val().question}<br>A.
+    <h4>${questionNumber}.    ${question.val().question}<br>A.
     <input class='checkboxAnswerOne' id='checkboxAnswerOne${question.key}' type="checkbox"/>
     <label class='labelAnswerOne' id='labelAnswerOne${question.key}' >${question.val().ChoiceA}</label><br>B.
     <input class='checkboxAnswerTwo' id='checkboxAnswerTwo${question.key}' type="checkbox"/>
@@ -162,6 +165,11 @@ function submitTestFunc(list, list2){
     compareAnswers(answersToBeChecked, allAnswers)
   })
   testContainer.innerHTML=`<p>Thank you for taking the Test!</p>`
+  setTimeout(function () {
+    currentUserID = ""
+    localStorage.setItem("vCurrentUser", currentUserID)
+    document.location.href = "index.html"
+  }, 30000);
 }
 
 let count = 0
@@ -187,6 +195,7 @@ function compareAnswers(userAnswersList , databaseAnswersList){
       }
       }
     scoreTest(count, teacherID, testID,currentUserID)
+    
   }
 
 function scoreTest(count, teacherID, testID, currentUserID){
@@ -194,9 +203,10 @@ function scoreTest(count, teacherID, testID, currentUserID){
   console.log(teacherID)
   console.log(testID)
   console.log(currentUserID)
-  let score = ((count / questionsForThisTest.length) * 100) + '%'
+  score = ((count / questionsForThisTest.length) * 100) + '%'
   usersRef.child(teacherID).child("Students").child(currentUserID).child("Tests").child(testID).set(score)
-  console.log(score + '%')
+  console.log(score)
+  testContainer.insertAdjacentHTML("beforeend", `<p> Your score is ${score}</p>`)
 }
 
 
@@ -289,25 +299,40 @@ startTime(testTime)
         if (--timer < 0) {
             timer = duration;
         }
+        let popUpTime = document.getElementById("myPopup")
         if (minutes >= 5 && minutes % 5 == 0 && seconds == 0) {
             console.log((minutes) + " Minutes Left")
+          
+          popUpTime.innerHTML = ((minutes) + " Minutes Left")
+          popUpTime.classList.toggle("show")
+          setTimeout(function () { popUpTime.classList.toggle("show") }, 10000);
         }
         else if (5 > minutes >= 1 && seconds == 0){
             console.log((minutes) + " Minutes Left")
-            let popUpTime = document.getElementById("myPopup")
+            
+            popUpTime.innerHTML = ((minutes) + " Minutes Left")
             popUpTime.classList.toggle("show")
+            setTimeout(function () { popUpTime.classList.toggle("show") }, 10000);
         }
         else if (minutes == 0 && seconds % 30 == 0) {
             console.log((seconds) + " Seconds Left")
+          
+          popUpTime.innerHTML = ((seconds) + " Seconds Left")
+          popUpTime.classList.toggle("show")
+          setTimeout(function () { popUpTime.classList.toggle("show") }, 10000);
         }
         if (timer == 0) {
-          currentUserID = ""
-          localStorage.setItem("vCurrentUser", currentUserID)
-          //document.location.href = "register.html"
-        }
+          submitTestFunc(questionsForThisTest, questionsForThisTestKey)
+          setTimeout(function(){
+            currentUserID = ""
+            localStorage.setItem("vCurrentUser", currentUserID)
+            document.location.href = "index.html"}, 30000);
+
+          }
+    }, 1000)
     }
-    , 1000);
-}
+    
+
 logOutButton.addEventListener('click', function () {
 currentUserID = ""
   localStorage.setItem("vCurrentUser", currentUserID)

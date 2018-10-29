@@ -22,11 +22,15 @@ margin-top: 30px;
 width:20%;
 font-size: 20px;
 }
-
+#timeDisplay {
+    position: absolute;
+    top: 30%;
+    left: 50%; 
+}
 /* Popup container */
 .popup {
-    position: fixed;
-    top: 40px;
+    position: absolute;
+    top: 30%;
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
@@ -35,8 +39,8 @@ font-size: 20px;
 /* The actual popup (appears on top) */
 
 .popup {
-  position: fixed;
-  top: 40px;
+  position: absolute;
+  top: 30%;
   left:50%;
   transform: translateX(-50%);
 }
@@ -73,6 +77,12 @@ font-size: 20px;
     animation: fadeIn 1s
 
 
+}
+
+.popup .hide {
+    visibility: hidden;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
 }
 
 /* Add animation (fade in the popup) */
