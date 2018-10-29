@@ -125,7 +125,7 @@ function register() {
               var errorCode = error.code;
               var errorMessage = error.message;
               if (errorCode === "auth/email-already-in-use") {
-                login()
+              
                 userPreRegisterMessage()
               }
             })
@@ -172,8 +172,9 @@ function login() {
         console.log(errorCode)
         console.log(errorMessage)
         if (errorCode === "auth/user-not-found") {
-        register()
         userNotRegistedMessage()
+      } else {
+          alert("Invalid password")
       }
       })
   })
@@ -181,11 +182,23 @@ function login() {
 }
 
 function userPreRegisterMessage() {
-  regLogin.insertAdjacentHTML('beforeend', `<div>User Already Registered</div>`)
+  regLogin.insertAdjacentHTML('beforeend', `<div>User Already Registered</div>
+  <button id="btnSelectLogin">Login</button>`)
+  let btnSelectLogin = document.getElementById("btnSelectLogin")
+  btnSelectLogin.addEventListener('click', function () {
+
+    login()
+  })
 }
 
 function userNotRegistedMessage() {
-  regLogin.insertAdjacentHTML('beforeend', `<div>User Not Registered</div>`)
+  regLogin.insertAdjacentHTML('beforeend', `<div>User Not Registered</div>
+  <button id="btnSelectRegister">Register</button>`)
+  let btnSelectRegister = document.getElementById("btnSelectRegister")
+  btnSelectRegister.addEventListener('click', function () {
+
+    login()
+  })
 }
 
  function appDirector(userID) {
